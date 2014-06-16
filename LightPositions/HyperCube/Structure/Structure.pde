@@ -1,7 +1,11 @@
+HyperCube cube;
 
 void setup() {
-  CubePixel cube = new CubePixel();
+  size(600, 600);
+  //test constructor
+  cube = new HyperCube();
 }
 
-void draw() {  
+void draw() {
+  background(0);
 }
