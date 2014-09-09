@@ -50,7 +50,7 @@ void shadeCornersRed()
   for(int i = 0; i < LEDs.length; i++)
   {
     LED myLED = LEDs[i];
-    if(myLED.corner)
+    if(myLED.isCorner)
     {
       myLED.shade = color(255, 0, 0);
     }
@@ -88,7 +88,6 @@ void shadeLightPoints(ArrayList<lightPoint> newlightPoints)
         blue += blue(lightSource.lightColor) * dist;
       }
     }
-    
      myLED.shade = color(red, green, blue);
   }
 }
@@ -97,6 +96,40 @@ void shadeOnePoint(int index, color newColor)
 {
   LEDs[index].shade = newColor;
 }
+
+void shadeNoise(float xOff)
+{
+  for(int i = 0; i < LEDs.length; i++)
+  {
+    //float red = map(noise(i / 24 + xOff), 0, 1, 0, 255);
+    //float green = map(noise(i / 3 + xOff + 1000), 0, 1, 0, 255);
+    float blue = map(noise(i + xOff + 2000), 0, 1, 0, 255);
+    LEDs[i].shade = color(0, 0, blue);
+  }
+}
+
+/*
+void shadeLightPlane(ArrayList<lightPlane> newlightPlanes)
+{
   
+}
+*/
+
+void shadeBelowY(float y)
+{
+  for(int i = 0; i < LEDs.length; i++)
+  {
+    LED myLED = LEDs[i];
+    
+    if(myLED.realLocation.y > y)
+    {
+      myLED.shade = color(255);
+    }
+    else
+    {
+      myLED.shade = color(127);
+    }
+  }
+}
 
 //tune to the music

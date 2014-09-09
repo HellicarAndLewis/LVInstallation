@@ -4,81 +4,71 @@ import ddf.minim.*;
 import ddf.minim.analysis.*;
 import ddf.minim.ugens.*;
 import ddf.minim.effects.*;
-
-import peasy.test.*;
-import peasy.org.apache.commons.math.*;
-import peasy.*;
-import peasy.org.apache.commons.math.geometry.*;
+import java.util.Map;
 
 PFont font;
 OPC opc;
 PImage dot;
-//PeasyCam camera;
 LED[] LEDs;
-LED[] cornerLEDs;
 ArrayList<lightPoint> lightPoints;
 boolean MapOn;
 PVector centerMouse;
-Minim minim;
 
-float closestDist;
+Minim minim;
+AudioPlayer player;
+
+float minDistance;
 int closestText;
 float closestTextX;
 float closestTextY;
 
-float lightX, lightY, lightZ;
-float theta;
+float xOff = 0.0;
 
 void setup()
 {
   size(1000, 1000, P3D);
-
+  //frameRate(10);
   MapOn = true;
-
+  
+  minim = new Minim(this);
+  
+  player = minim.loadFile("testSound.mp3");
+  
+  
   LEDs = new LED[460]; // Initialize Full Tesseract Array (460 = number of LEDs)
-  cornerLEDs = new LED[64]; // Initialize array of corners
   lightPoints = new ArrayList<lightPoint>();
-  /*
-  for(int i = 0; i < LEDs.length; i++)
-  {
-    PVector nadda = new PVector(0, 0, 0);
-    LED newLED = new LED(nadda, nadda);
-    LEDs[i] = newLED;
-  }
-  */
-
+  
   dot = loadImage("dot.png");
   opc = new OPC(this, "127.0.0.1", 7890);
-  
-  lightX = -100;
-  lightY = -100;
-  lightZ = -100;
-  theta = 0;
 
   //generate the Tesseract
   generateTesseract();
+  setCornerConnections();
   
   //start up minim - for playing music
   minim = new Minim(this);
+  player = minim.loadFile("testSound.mp3");
   
   //Shade Tesseract Initially
+  
   //shadeRainbow();
-  shadeSolid(127, 127, 127);
+  //shadeSolid(127, 127, 127);
   //shadeCornersRed();
   //shadeRandom();
   //shadeChargeUp();
-  //lightPoint light1 = new lightPoint(LEDs[12].realLocation, color(0, 200, 255), 100);
-  lightPoint light2 = new lightPoint(LEDs[12].realLocation, color(255, 0, 0), 20);
-  lightPoint light3 = new lightPoint(0, 0, 0, color(255, 255, 255), 200);
+  
+  //lightPoint light1 = new lightPoint(LEDs[12], color(255, 0, 0), 20);
+  //lightPoint light2 = new lightPoint(0, 0, 0, color(255, 255, 255), 200);
   //lightPoints.add(light1);
-  lightPoints.add(light2);
-  lightPoints.add(light3);
+  //lightPoints.add(light2);
   //shadeOnePoint(12, blue);
   
   for(int i = 0; i < LEDs.length; i++)
   {
     opc.led(i, (int)LEDs[i].mapLocation.x, (int)LEDs[i].mapLocation.y);
   }
+  player.play();
+  player.loop();
 }
 
 void draw()
@@ -86,7 +76,22 @@ void draw()
   background(0);
   //shadeRandomBlackAndWhite();
   //shadeChargeUp();
-  shadeLightPoints(lightPoints);
+  //shadeLightPoints(lightPoints);
+  //shadeNoise(xOff);
+  float maxLimit = MIN_FLOAT;
+  
+  for(int i = 0; i < player.bufferSize() - 1; i++)
+  {
+    float newLimit = player.left.get(i);
+    if(newLimit > maxLimit)
+    {
+      maxLimit = newLimit;
+    }
+  }
+  maxLimit *= 150;
+  shadeBelowY(100 - maxLimit);
+  //xOff += 0.05;
+  
   //Draw 3D version all the time
   for (int i = 0; i < LEDs.length; i++)
   {
@@ -98,29 +103,40 @@ void draw()
     for (int i = 0; i < LEDs.length; i++)
     {
       LEDs[i].drawMap(0, 0);
+      LEDs[i].stroke = 0;
     }
   }
   
-  lightPoint redDot = lightPoints.get(0);
-  redDot.location = 
-  
-  for(int i = 0; i < lightPoints.size() - 1; i++)
+  minDistance = MAX_FLOAT;
+  PVector mouseLocation = new PVector(mouseX, mouseY);
+  for(int i = 0; i < LEDs.length; i++)
   {
-    lightPoints.get(i).display(width*0.75, height*0.75, 0);
+    float dist = dist(mouseLocation.x, mouseLocation.y, LEDs[i].mapLocation.x, LEDs[i].mapLocation.y);
+    if(dist < 10 && dist < minDistance)
+    {
+      minDistance = dist;
+      closestText = i;
+      closestTextX = mouseLocation.x + 10;
+      closestTextY = mouseLocation.y - 10;
+    }
   }
   
-  /*
-  // Change the dot size as a function of time, to make it "throb"
-  float dotSize = height * 0.3 * (1.0 + 0.2 * sin(millis() * 0.01));
-  
-  // Draw it centered at the mouse location
-  image(dot, mouseX - dotSize/2, mouseY - dotSize/2, dotSize, dotSize);
-  */
+  if(minDistance < MAX_FLOAT)
+  {
+    pushMatrix();
+    fill(255);
+    translate(closestTextX, closestTextY);
+    textAlign(CENTER);
+    text(closestText, 0, 0);
+    popMatrix();
+    
+    LEDs[closestText].stroke = 255;
+  }
 }
 
 void keyPressed()
 {
-  //toggle drawing the 3D map
+  //toggle drawing the 2D map
   MapOn = !MapOn;
 }
 

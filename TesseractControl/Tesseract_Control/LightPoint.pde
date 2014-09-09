@@ -7,7 +7,7 @@ class lightPoint
   
   public lightPoint(PVector newLocation, color newLightColor, float newIntensity)
   {
-    location = newLocation;
+    location = newLocation.get();
     lightColor = newLightColor;
     intensity = newIntensity;
   }
@@ -22,8 +22,15 @@ class lightPoint
   
   public lightPoint(int newLEDIndex, color newLightColor, float newIntensity)
   {
-    location = LEDs[newLEDIndex].realLocation;
+    location = LEDs[newLEDIndex].realLocation.get();
     LEDIndex = newLEDIndex;
+    lightColor = newLightColor;
+    intensity = newIntensity;
+  }
+  
+  public lightPoint(LED newLED, color newLightColor, float newIntensity)
+  {
+    location = newLED.realLocation.get();
     lightColor = newLightColor;
     intensity = newIntensity;
   }

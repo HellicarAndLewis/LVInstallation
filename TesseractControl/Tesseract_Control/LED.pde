@@ -5,7 +5,7 @@ class LED
   //Location in 2D Map Space
   PVector mapLocation;
   //Are you a vertex?
-  boolean corner = false;
+  boolean isCorner = false;
   
   //Colors
   color shade;
@@ -19,8 +19,9 @@ class LED
   //Next and Last LEDs in the chain
   int nextLEDIndex;
   int lastLEDIndex;
+  int LEDIndex;
   //Array of LEDs you are linked to if you are a corner,
-  LED[] cornerLEDs = new LED[3];
+  int[] cornerIndices = new int[3];
   
   public LED(PVector newRealLocation, PVector newMapLocation)
   {
