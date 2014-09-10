@@ -14,24 +14,16 @@ void shadeRainbow()
 }
 
 //random colored
-void shadeRandom()
+void shadeRandom(LED myLED)
 {
-  for(int i = 0; i < LEDs.length; i++)
-  {
-    LED myLED = LEDs[i];
     myLED.shade = color(random(0, 255), random(0, 255), random(0, 255));
-  }
 }
 
 //random black and white
-void shadeRandomBlackAndWhite()
+void shadeRandomBlackAndWhite(LED myLED)
 {
-  for(int i = 0; i < LEDs.length; i++)
-  {
-    LED myLED = LEDs[i];
     float colour = random(0,255);
     myLED.shade = color(colour, colour, colour);
-  }
 }
 
 //all one solid color
@@ -58,38 +50,30 @@ void shadeCornersRed()
 }
 
 //slowly charge up
-void shadeChargeUp() 
+void shadeChargeUp(LED myLED) 
 {
-  for(int i = 0; i < LEDs.length; i++)
-  {
-    LED myLED = LEDs[i];
-    myLED.shade = color(millis()/50,millis()/50,millis()/50);
-  }
+  myLED.shade = color(millis()/50,millis()/50,millis()/50);
 }
 
-void shadeLightPoints(ArrayList<lightPoint> newlightPoints)
+void shadeLightPoints(LED myLED, ArrayList<lightPoint> newlightPoints)
 {
-  for(int i = 0; i < LEDs.length; i++)
+  float red = 0;
+  float green = 0;
+  float blue = 0;
+  
+  for(int j = 0; j < newlightPoints.size(); j++)
   {
-    LED myLED = LEDs[i];
-    float red = 0;
-    float green = 0;
-    float blue = 0;
-    
-    for(int j = 0; j < newlightPoints.size(); j++)
+    lightPoint lightSource = newlightPoints.get(j);
+    float dist = dist(myLED.realLocation.x, myLED.realLocation.y, myLED.realLocation.z, lightSource.location.x, lightSource.location.y, lightSource.location.z);
+    if(dist < lightSource.intensity.value)
     {
-      lightPoint lightSource = newlightPoints.get(j);
-      float dist = dist(myLED.realLocation.x, myLED.realLocation.y, myLED.realLocation.z, lightSource.location.x, lightSource.location.y, lightSource.location.z);
-      if(dist < lightSource.intensity)
-      {
-        dist = map(dist, 0, lightSource.intensity, 1, 0);
-        red += red(lightSource.lightColor) * dist;
-        green += green(lightSource.lightColor) * dist;
-        blue += blue(lightSource.lightColor) * dist;
-      }
+      dist = map(dist, 0, lightSource.intensity.value, 1, 0);
+      red += red(lightSource.lightColor) * dist;
+      green += green(lightSource.lightColor) * dist;
+      blue += blue(lightSource.lightColor) * dist;
     }
-     myLED.shade = color(red, green, blue);
   }
+  myLED.shade = color(red, green, blue);
 }
 
 void shadeOnePoint(int index, color newColor)
@@ -97,15 +81,10 @@ void shadeOnePoint(int index, color newColor)
   LEDs[index].shade = newColor;
 }
 
-void shadeNoise(float xOff)
+void shadeNoise(LED myLED, float xOff)
 {
-  for(int i = 0; i < LEDs.length; i++)
-  {
-    //float red = map(noise(i / 24 + xOff), 0, 1, 0, 255);
-    //float green = map(noise(i / 3 + xOff + 1000), 0, 1, 0, 255);
-    float blue = map(noise(i + xOff + 2000), 0, 1, 0, 255);
-    LEDs[i].shade = color(0, 0, blue);
-  }
+  //float blue = map(noise(i + xOff + 2000), 0, 1, 0, 255);
+  //myLED.shade = color(0, 0, blue);
 }
 
 /*
@@ -115,21 +94,65 @@ void shadeLightPlane(ArrayList<lightPlane> newlightPlanes)
 }
 */
 
-void shadeBelowY(float y)
+void shadeByYCuttoff(LED myLED, float cuttoff, color newColor, boolean above)
 {
-  for(int i = 0; i < LEDs.length; i++)
+  if(above)
   {
-    LED myLED = LEDs[i];
-    
-    if(myLED.realLocation.y > y)
+    if(myLED.realLocation.y < cuttoff)
     {
-      myLED.shade = color(255);
+      myLED.shade = newColor;
     }
-    else
+  }
+  else
+  {
+    if(myLED.realLocation.y > cuttoff)
     {
-      myLED.shade = color(127);
+      myLED.shade = newColor;
     }
   }
 }
+
+void shadeByXCuttoff(LED myLED, float cuttoff, color newColor, boolean above)
+{
+  if(above)
+  {
+    if(myLED.realLocation.x < cuttoff)
+    {
+      myLED.shade = newColor;
+    }
+  }
+  else
+  {
+    if(myLED.realLocation.x > cuttoff)
+    {
+      myLED.shade = newColor;
+    }
+  }
+}
+
+void shadeByZCuttoff(LED myLED, float cuttoff, color newColor, boolean above)
+{
+  if(above)
+  {
+    if(myLED.realLocation.x < cuttoff)
+    {
+      myLED.shade = newColor;
+    }
+  }
+  else
+  {
+    if(myLED.realLocation.x > cuttoff)
+    {
+      myLED.shade = newColor;
+    }
+  }
+}
+
+/*
+void normalizeShading()
+{
+  
+}
+*/
 
 //tune to the music

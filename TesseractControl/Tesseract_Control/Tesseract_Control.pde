@@ -8,37 +8,44 @@ import java.util.Map;
 
 PFont font;
 OPC opc;
-PImage dot;
-LED[] LEDs;
 ArrayList<lightPoint> lightPoints;
-boolean MapOn;
-PVector centerMouse;
+boolean mapOn;
+boolean randomOn;
+
+int shaders;
 
 Minim minim;
 AudioPlayer player;
+
+ArrayList<lightPoint> movingLights;
+ArrayList<lightPoint> staticLights;
+
+LED[] LEDs;
 
 float minDistance;
 int closestText;
 float closestTextX;
 float closestTextY;
 
-float xOff = 0.0;
-
+int savedTime = 0;
 void setup()
 {
   size(1000, 1000, P3D);
   //frameRate(10);
-  MapOn = true;
+  mapOn = true;
+  randomOn = false;
+  
+  shaders = 0;
   
   minim = new Minim(this);
   
   player = minim.loadFile("testSound.mp3");
   
-  
   LEDs = new LED[460]; // Initialize Full Tesseract Array (460 = number of LEDs)
   lightPoints = new ArrayList<lightPoint>();
+  movingLights = new ArrayList<lightPoint>();
+  staticLights = new ArrayList<lightPoint>();
   
-  dot = loadImage("dot.png");
   opc = new OPC(this, "127.0.0.1", 7890);
 
   //generate the Tesseract
@@ -57,48 +64,35 @@ void setup()
   //shadeRandom();
   //shadeChargeUp();
   
-  //lightPoint light1 = new lightPoint(LEDs[12], color(255, 0, 0), 20);
-  //lightPoint light2 = new lightPoint(0, 0, 0, color(255, 255, 255), 200);
-  //lightPoints.add(light1);
-  //lightPoints.add(light2);
-  //shadeOnePoint(12, blue);
+  //redBouncersSetupStaticLights();
   
-  for(int i = 0; i < LEDs.length; i++)
-  {
-    opc.led(i, (int)LEDs[i].mapLocation.x, (int)LEDs[i].mapLocation.y);
-  }
+  setupLEDs();
+  
   player.play();
   player.loop();
+  
 }
 
 void draw()
 {
   background(0);
-  //shadeRandomBlackAndWhite();
-  //shadeChargeUp();
-  //shadeLightPoints(lightPoints);
-  //shadeNoise(xOff);
-  float maxLimit = MIN_FLOAT;
   
-  for(int i = 0; i < player.bufferSize() - 1; i++)
+  //PopOnBeat(0.1);
+  //FillThenDance(0.1);
+  PopThenDrop(0.1);
+  for(int i = 0; i < LEDs.length; i++)
   {
-    float newLimit = player.left.get(i);
-    if(newLimit > maxLimit)
-    {
-      maxLimit = newLimit;
-    }
+    LED myLED = LEDs[i];
+    shadeLightPoints(myLED, lightPoints);
   }
-  maxLimit *= 150;
-  shadeBelowY(100 - maxLimit);
-  //xOff += 0.05;
   
   //Draw 3D version all the time
   for (int i = 0; i < LEDs.length; i++)
   {
     LEDs[i].draw3D(width*0.75, height*0.75);
   }
-  //Draw 2D map when MapOn is toggled
-  if(MapOn)
+  //Draw 2D map when mapOn is toggled
+  if(mapOn)
   {
     for (int i = 0; i < LEDs.length; i++)
     {
@@ -131,12 +125,27 @@ void draw()
     popMatrix();
     
     LEDs[closestText].stroke = 255;
+    LED myLED = LEDs[closestText];
+    LEDs[myLED.nextLEDIndex].stroke = 255;
+  }
+  
+  for(int i = 0; i < lightPoints.size(); i++)
+  {
+    //lightPoints.get(i).display(width*0.75, height*0.75, 0);
   }
 }
 
 void keyPressed()
 {
   //toggle drawing the 2D map
-  MapOn = !MapOn;
+  mapOn = !mapOn;
+}
+
+void setupLEDs()
+{
+  for(int i = 0; i < LEDs.length; i++)
+  {
+    opc.led(i, (int)LEDs[i].mapLocation.x, (int)LEDs[i].mapLocation.y);
+  }
 }
 

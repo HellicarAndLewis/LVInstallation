@@ -69,19 +69,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripOutside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -96,19 +97,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripOutside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -125,19 +127,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripOutside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     LEDs[LEDindex] = newLED;
+    newLED.LEDIndex = LEDindex;
     LEDindex++;
   }
   //E to H
@@ -151,19 +154,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripOutside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -189,19 +193,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripConnections - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -216,19 +221,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripInside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -250,19 +256,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripConnections - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -280,19 +287,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripOutside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -307,19 +315,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripOutside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -345,19 +354,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripConnections - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -372,19 +382,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripInside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -406,19 +417,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripConnections - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -434,19 +446,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripInside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -461,19 +474,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripInside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -488,19 +502,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripInside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -515,19 +530,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripInside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -545,19 +561,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripOutside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -572,19 +589,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripOutside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -610,19 +628,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripConnections - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -637,17 +656,17 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripInside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
     LEDs[LEDindex] = newLED;
@@ -671,19 +690,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripConnections - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -699,19 +719,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripInside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -726,19 +747,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripInside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -753,19 +775,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripInside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -780,19 +803,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripInside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -810,19 +834,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripOutside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -837,19 +862,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripOutside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -865,19 +891,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripOutside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -892,19 +919,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripOutside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -930,19 +958,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripConnections - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -957,19 +986,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripInside - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
@@ -991,19 +1021,20 @@ void generateTesseract()
     if(i == 0)
     {
       newLED.isCorner = true;
-      newLED.nextLEDIndex = i+1;
+      newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripConnections - 1)
     {
       newLED.isCorner = true;
-      newLED.lastLEDIndex = i-1;
+      newLED.lastLEDIndex = LEDindex-1;
     }
     else
     {
-      newLED.nextLEDIndex = i+1;
-      newLED.lastLEDIndex= i-1;
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
