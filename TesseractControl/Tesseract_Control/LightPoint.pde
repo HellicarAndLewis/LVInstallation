@@ -18,7 +18,6 @@ class lightPoint
     acceleration = new PVector(0, 0, 0);
   }
   
-  
   public lightPoint(float x, float y, float z, color newLightColor, float newIntensity)
   {
     location = new PVector(x, y, z);

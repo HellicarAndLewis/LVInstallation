@@ -1,9 +1,10 @@
-void PopOnBeat(float level)
+void PopOnBeat()
 {
-  if(player.left.level() > level)
+  if(beat.isOnset())
   {
     lightPoint newLight = new lightPoint(LEDs[int(random(460))], color(255, 0, 0), 20);
-    newLight.velocity = new PVector(random(0, 5), random(0, 5), random(0, 5));
+    newLight.intensity.attraction = 0.1;
+    newLight.intensity.target(500);
     movingLights.add(newLight);
     lightPoints.add(newLight);
   }
@@ -12,14 +13,6 @@ void PopOnBeat(float level)
   {
     movingLights.remove(0);
     lightPoints.remove(0);
-    if(player.left.level() > level)
-    {
-      for(int i = 0; i < movingLights.size(); i++)
-      {
-        lightPoint myLight = movingLights.get(i);
-        myLight.wobble(20, 100);
-      }
-    }
   }
   
   for(int i = 0; i < movingLights.size(); i++)
@@ -32,9 +25,9 @@ void PopOnBeat(float level)
   }
 }
 
-void FillThenDance(float level)
+void fillThenDance()
 {
-  if(player.left.level() > level)
+  if(beat.isOnset())
   {
     lightPoint newLight = new lightPoint(LEDs[int(random(460))], color(255, 255, 255), 50);
     newLight.velocity = new PVector(random(0, 5), random(0, 5), random(0, 5));
@@ -46,7 +39,7 @@ void FillThenDance(float level)
   {
     movingLights.remove(0);
     lightPoints.remove(0);
-    if(player.left.level() > level)
+    if(beat.isOnset())
     {
       for(int i = 0; i < movingLights.size(); i++)
       {
@@ -67,13 +60,23 @@ void FillThenDance(float level)
   }
 }
 
-void PopThenDrop(float level)
+void PopThenDrop()
 {
-  if(player.left.level() > level)
+  if(beat.isOnset())
   {
-    lightPoint newLight = new lightPoint(random(-100, 100), -100, random(-100, 100), color(255, 0, 0), 50);
+    float sideCheck = random(1);
+    int newIndex = 0;
+    if(sideCheck < 0.125) newIndex = 339;
+    else if(sideCheck < 0.25) newIndex = 71;
+    else if(sideCheck < 0.375) newIndex = 443;
+    else if(sideCheck < 0.5) newIndex = 254;
+    else if(sideCheck < 0.625) newIndex = 286;
+    else if(sideCheck < 0.75) newIndex = 112;
+    else if(sideCheck < 0.875) newIndex = 185;
+    else if(sideCheck < 1.0) newIndex = 145;
+    lightPoint newLight = new lightPoint(LEDs[newIndex], color(255, 0, 0), 30);
     newLight.acceleration = new PVector(0, random(0, 5), 0);
-    newLight.intensity.target(100);
+    newLight.intensity.target(50);
     movingLights.add(newLight);
     lightPoints.add(newLight);
   }
@@ -96,9 +99,45 @@ void PopThenDrop(float level)
   }
 }
 
-void flashersSetup()
+void pairOfSpotsSetup(float largeSize)
 {
-  //staticLights.add(
+  lightPoints.add(new lightPoint(-100, 0, 0, color(255, 255, 255), largeSize));
+  lightPoints.add(new lightPoint(100, 0, 0, color(255, 255, 255), 0));
+}
+
+void pairOfSpotsRun(float largeSize)
+{
+  lightPoint leftLight = lightPoints.get(0);
+  lightPoint rightLight = lightPoints.get(1);
+  leftLight.intensity.attraction = 0.5;
+  
+  if(beat.isOnset())
+  {
+    if(leftLight.intensity.target == largeSize || leftLight.intensity.value >= largeSize)
+    {
+      leftLight.intensity.target(20);
+    }
+    else if(leftLight.intensity.target == 20 || leftLight.intensity.value <= 20)
+    {
+      leftLight.intensity.target(largeSize);
+    }
+    if(rightLight.intensity.target == largeSize || rightLight.intensity.value >= largeSize)
+    {
+      rightLight.intensity.target(20);
+    }
+    else if(rightLight.intensity.target == 20 || rightLight.intensity.value <= 20)
+    {
+      rightLight.intensity.target(largeSize);
+    }
+  }
+  
+  for(int i = 0; i < lightPoints.size(); i++)
+  {
+    lightPoint myLight = lightPoints.get(i);
+    myLight.move();
+    myLight.update();
+    myLight.findNearestLED();
+  }
 }
   /*
   float maxLimit = MIN_FLOAT;

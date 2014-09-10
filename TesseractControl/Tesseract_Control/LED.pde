@@ -8,7 +8,8 @@ class LED
   boolean isCorner = false;
   
   //Colors
-  color shade;
+  color shade = 0;
+  color trueColor;
   color stroke;
   
   //Type of strip you are in
@@ -27,7 +28,6 @@ class LED
   {
     realLocation = newRealLocation;
     mapLocation = newMapLocation;
-    shade = 255;
     stroke = 0;
     noStroke();
   }

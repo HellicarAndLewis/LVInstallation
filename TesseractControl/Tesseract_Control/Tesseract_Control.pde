@@ -16,6 +16,7 @@ int shaders;
 
 Minim minim;
 AudioPlayer player;
+BeatDetect beat;
 
 ArrayList<lightPoint> movingLights;
 ArrayList<lightPoint> staticLights;
@@ -31,7 +32,6 @@ int savedTime = 0;
 void setup()
 {
   size(1000, 1000, P3D);
-  //frameRate(10);
   mapOn = true;
   randomOn = false;
   
@@ -54,16 +54,17 @@ void setup()
   
   //start up minim - for playing music
   minim = new Minim(this);
-  player = minim.loadFile("testSound.mp3");
+  player = minim.loadFile("LVSong01.mp3");
+  beat = new BeatDetect();
   
   //Shade Tesseract Initially
   
-  //shadeRainbow();
+  colorRainbow();
   //shadeSolid(127, 127, 127);
   //shadeCornersRed();
   //shadeRandom();
   //shadeChargeUp();
-  
+  pairOfSpotsSetup(300);
   //redBouncersSetupStaticLights();
   
   setupLEDs();
@@ -77,12 +78,15 @@ void draw()
 {
   background(0);
   
-  //PopOnBeat(0.1);
-  //FillThenDance(0.1);
-  PopThenDrop(0.1);
+  beat.detect(player.mix);
+  //PopOnBeat();
+  //fillThenDance();
+  //PopThenDrop();
+  pairOfSpotsRun(200);
   for(int i = 0; i < LEDs.length; i++)
   {
     LED myLED = LEDs[i];
+    //shadeFullBrightness(myLED);
     shadeLightPoints(myLED, lightPoints);
   }
   
