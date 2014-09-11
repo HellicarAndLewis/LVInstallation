@@ -1,6 +1,6 @@
-void PopOnBeat()
+void popOnBeat()
 {
-  if(beat.isOnset())
+  if(beat.isHat())
   {
     lightPoint newLight = new lightPoint(LEDs[int(random(460))], color(255, 0, 0), 20);
     newLight.intensity.attraction = 0.1;
@@ -27,7 +27,7 @@ void PopOnBeat()
 
 void fillThenDance()
 {
-  if(beat.isOnset())
+  if(beat.isSnare())
   {
     lightPoint newLight = new lightPoint(LEDs[int(random(460))], color(255, 255, 255), 50);
     newLight.velocity = new PVector(random(0, 5), random(0, 5), random(0, 5));
@@ -62,7 +62,7 @@ void fillThenDance()
 
 void PopThenDrop()
 {
-  if(beat.isOnset())
+  if(beat.isHat())
   {
     float sideCheck = random(1);
     int newIndex = 0;
@@ -139,6 +139,55 @@ void pairOfSpotsRun(float largeSize)
     myLight.findNearestLED();
   }
 }
+
+void shadeCornersOnBeat()
+{
+  if(beat.isOnset() && vertexIndex < 16)
+  { 
+    lightPoint newLight = new lightPoint(vertices[vertexIndex], color(255, 255, 255), 30);
+    newLight.intensity.target(20);
+    staticLights.add(newLight);
+    lightPoints.add(newLight);
+    vertexIndex++;
+  }
+  else if(beat.isOnset())
+  {
+    for(int i = 0; i < LEDs.length; i++)
+    {
+      LED myLED = LEDs[i];
+      if(!myLED.isCorner) colorRandomBlackAndWhite(myLED);
+    }
+    for(int i = 0; i < staticLights.size(); i++)
+    {
+      staticLights.get(i).intensity.target += (staticLights.get(i).intensity.target == 100) ? 0 : 20;
+      staticLights.get(i).intensity.update();
+    }
+  }
+}
+
+void shrinkToCenterSetup()
+{
+  if(!shrinkSetupDone)
+  {
+    staticLights.clear();
+    movingLights.clear();
+    lightPoints.clear();
+    lightPoint newLight = new lightPoint(0, 0, 0, color(255, 255, 255), 400);
+    newLight.intensity.attraction = 0.01;
+    newLight.intensity.damping = 1.0;
+    newLight.intensity.target(0);
+    staticLights.add(newLight);
+    lightPoints.add(newLight);
+    shrinkSetupDone = true;
+  }
+}
+
+void shrinkToCenterRun()
+{
+  lightPoints.get(0).intensity.update();
+}
+
+
   /*
   float maxLimit = MIN_FLOAT;
   
