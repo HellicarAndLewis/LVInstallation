@@ -1,10 +1,10 @@
 void popOnBeat()
 {
-  if(beat.isHat())
+  if(beat.isRange(0, 5, 1))
   {
-    lightPoint newLight = new lightPoint(LEDs[int(random(460))], color(255, 0, 0), 20);
+    lightPoint newLight = new lightPoint(LEDs[int(random(460))], color(255, 255, 255), 20);
     newLight.intensity.attraction = 0.1;
-    newLight.intensity.target(500);
+    newLight.intensity.target(300);
     movingLights.add(newLight);
     lightPoints.add(newLight);
   }
@@ -27,7 +27,7 @@ void popOnBeat()
 
 void fillThenDance()
 {
-  if(beat.isSnare())
+  if(beat.isKick())
   {
     lightPoint newLight = new lightPoint(LEDs[int(random(460))], color(255, 255, 255), 50);
     newLight.velocity = new PVector(random(0, 5), random(0, 5), random(0, 5));
@@ -43,7 +43,6 @@ void fillThenDance()
     {
       for(int i = 0; i < movingLights.size(); i++)
       {
-        
         lightPoint myLight = movingLights.get(i);
         myLight.wobble(20, 100);
       }
@@ -74,7 +73,7 @@ void PopThenDrop()
     else if(sideCheck < 0.75) newIndex = 112;
     else if(sideCheck < 0.875) newIndex = 185;
     else if(sideCheck < 1.0) newIndex = 145;
-    lightPoint newLight = new lightPoint(LEDs[newIndex], color(255, 0, 0), 30);
+    lightPoint newLight = new lightPoint(LEDs[newIndex], color(255, 255, 255), 30);
     newLight.acceleration = new PVector(0, random(0, 5), 0);
     newLight.intensity.target(50);
     movingLights.add(newLight);
@@ -165,28 +164,168 @@ void shadeCornersOnBeat()
   }
 }
 
-void shrinkToCenterSetup()
+void quadBoxRotSetup()
 {
-  if(!shrinkSetupDone)
+  lightBlock block1 = new lightBlock(100.0, 100.0, 100.0, 200.0, 200.0, 200.0);
+  block1.velocity = new PVector(-1, 0, 0);
+  lightBlock block2 = new lightBlock(-100.0, 100.0, 100.0, 200.0, 200.0, 200.0);
+  block2.velocity = new PVector(0, 0, -1);
+  lightBlock block3 = new lightBlock(100.0, 100.0, -100.0, 200.0, 200.0, 200.0);
+  block3.velocity = new PVector(0, 0, 1);
+  lightBlock block4 = new lightBlock(-100.0, 100.0, -100.0, 200.0, 200.0, 200.0);
+  block4.velocity = new PVector(1, 0, 0);
+  lightBlocks.add(block1);
+  lightBlocks.add(block2);
+  lightBlocks.add(block3);
+  lightBlocks.add(block4);
+}
+
+void quadBoxRotRun()
+{
+    for(int i = 0; i < lightBlocks.size(); i++)
   {
-    staticLights.clear();
-    movingLights.clear();
-    lightPoints.clear();
-    lightPoint newLight = new lightPoint(0, 0, 0, color(255, 255, 255), 400);
-    newLight.intensity.attraction = 0.01;
-    newLight.intensity.damping = 1.0;
-    newLight.intensity.target(0);
-    staticLights.add(newLight);
-    lightPoints.add(newLight);
-    shrinkSetupDone = true;
+    float centerFrequency = fft.getAvg(i);
+    if(i == 0)
+    {
+      float blockHeight = map(centerFrequency, 0, 3, 0, 50);
+      lightBlocks.get(i).h.target(blockHeight);
+      lightBlocks.get(i).h.update();
+    }
+    else
+    {
+      float blockHeight = map(centerFrequency, 0, 1, 0, 50);
+      lightBlocks.get(i).h.target(blockHeight);
+      lightBlocks.get(i).h.update();
+    }
+  }
+  
+  for(int i = 0; i < lightBlocks.size(); i++)
+  {
+    lightBlock myBlock = lightBlocks.get(i);
+    //myBlock.velocity = new PVector(1, -1, 1);
+    //myBlock.move();
+    //myBlock.checkEdges();
   }
 }
 
-void shrinkToCenterRun()
+void octoBoxSetup()
 {
-  lightPoints.get(0).intensity.update();
+  lightBlock block1 = new lightBlock(50.0, 0.0, 100.0, 110.0, 200.0, 10.0);
+  lightBlock block2 = new lightBlock(100.0, 0.0, 50.0, 10.0, 200.0, 110.0);
+  lightBlock block3 = new lightBlock(-50.0, 0.0, 100.0, 110.0, 200.0, 10.0);
+  lightBlock block4 = new lightBlock(-100.0, 0.0, 50.0, 10.0, 200.0, 110.0);
+  lightBlock block5 = new lightBlock(50.0, 0.0, -100.0, 110.0, 200.0, 10.0);
+  lightBlock block6 = new lightBlock(100.0, 0.0, -50.0, 10.0, 200.0, 110.0);
+  lightBlock block7 = new lightBlock(-50.0, 0.0, -100.0, 110.0, 200.0, 10.0);
+  lightBlock block8 = new lightBlock(-100.0, 0.0, -50.0, 10.0, 200.0, 110.0);
+  
+  lightBlock block9 = new lightBlock(50.0, 0.0, 50.0, 100.0, 200.0, 100.0);
+  lightBlock block10 = new lightBlock(-50.0, 0.0, 50.0, 100.0, 200.0, 100.0); 
+  lightBlock block11 = new lightBlock(-50.0, 0.0, -50.0, 100.0, 200.0, 100.0); 
+  lightBlock block12 = new lightBlock(50.0, 0.0, -50.0, 100.0, 200.0, 100.0);
+
+  lightBlocks.add(block1);
+  lightBlocks.add(block2);
+  lightBlocks.add(block3);
+  lightBlocks.add(block4);
+  lightBlocks.add(block5);
+  lightBlocks.add(block6);
+  lightBlocks.add(block7);
+  lightBlocks.add(block8);
+  lightBlocks.add(block9);
+  lightBlocks.add(block10);
+  lightBlocks.add(block11);
+  lightBlocks.add(block12);
 }
 
+void octoBoxRun()
+{
+  for(int i = 0; i < lightBlocks.size(); i++)
+  {
+    float max = map(i, 0, 12, 2, 0.01);
+    float centerFrequency = fft.getAvg(i);
+    float blockHeight = map(centerFrequency, 0, max, 0, 50);
+    lightBlocks.get(i).h.target(blockHeight);
+    lightBlocks.get(i).h.update();
+  }
+}
+
+void equalizer3DSetup()
+{
+  lightBlock blockHor1 = new lightBlock(0, 100, 0, 10, 10, 250);
+  lightBlock blockHor2 = new lightBlock(0, -100, 0, 10, 10, 250);
+  lightBlock blockHor3 = new lightBlock(0, 50, 0, 10, 10, 250);
+  lightBlock blockHor4 = new lightBlock(0, -50, 0, 10, 10, 250);
+  
+  lightBlock blockHor5 = new lightBlock(0, 100, 0, 250, 10, 10);
+  lightBlock blockHor6 = new lightBlock(0, -100, 0, 250, 10, 10);
+  lightBlock blockHor7 = new lightBlock(0, 50, 0, 250, 10, 10);
+  lightBlock blockHor8 = new lightBlock(0, -50, 0, 250, 10, 10);
+  
+  lightBlock blockVert1 = new lightBlock(100, 0, 0, 10, 10, 250);
+  lightBlock blockVert2 = new lightBlock(-100, 0, 0, 10, 10, 250);
+  lightBlock blockVert3 = new lightBlock(50, 0, 0, 10, 10, 250);
+  lightBlock blockVert4 = new lightBlock(-50, 0, 0, 10, 10, 250);
+  
+  lightBlock blockVert5 = new lightBlock(100, 0, 0, 10, 250, 10);
+  lightBlock blockVert6 = new lightBlock(-100, 0, 0, 10, 250, 10);
+  lightBlock blockVert7 = new lightBlock(50, 0, 0, 10, 250, 10);
+  lightBlock blockVert8 = new lightBlock(-50, 0, 0, 10, 250, 10);
+
+  lightBlocks.add(blockHor1);
+  lightBlocks.add(blockHor2);
+  lightBlocks.add(blockHor3);
+  lightBlocks.add(blockHor4);
+  lightBlocks.add(blockHor5);
+  lightBlocks.add(blockHor6);
+  lightBlocks.add(blockHor7);
+  lightBlocks.add(blockHor8);
+  
+  lightBlocks.add(blockVert1);
+  lightBlocks.add(blockVert2);
+  lightBlocks.add(blockVert3);
+  lightBlocks.add(blockVert4);
+  lightBlocks.add(blockVert5);
+  lightBlocks.add(blockVert6);
+  lightBlocks.add(blockVert7);
+  lightBlocks.add(blockVert8);
+  
+  for(int i = 0; i < lightBlocks.size(); i++)
+  {
+    lightBlocks.get(i).w.attraction = 0.9;
+    lightBlocks.get(i).h.attraction = 0.9;
+    lightBlocks.get(i).d.attraction = 0.9;
+  }
+  
+}
+
+void equalizer3DRun()
+{
+  for(int i = 0; i < 4; i++)
+  {
+    //float max = map(i, 0, 15, 2, 0.01);
+    float centerFrequency = fft.getAvg(0);
+    float blockHeight = map(centerFrequency, 0, 10, 0, 50);
+    lightBlocks.get(i).w.target(blockHeight);
+    lightBlocks.get(i).w.update();
+  }
+  for(int i = 4; i < 8; i++)
+  {
+    //float max = map(i-4, 0, 15, 2, 0.01);
+    float centerFrequency = fft.getAvg(0);
+    float blockHeight = map(centerFrequency, 0, 10, 0, 50);
+    lightBlocks.get(i).d.target(blockHeight);
+    lightBlocks.get(i).d.update();
+  }
+  for(int i = 8; i < 12; i++)
+  {
+    //float max = map(i-8, 0, 12, 2, 0.01);
+    float centerFrequency = fft.getAvg(0);
+    float blockHeight = map(centerFrequency, 0, 10, 0, 50);
+    lightBlocks.get(i).h.target(blockHeight);
+    lightBlocks.get(i).h.update();
+  }
+}
 
   /*
   float maxLimit = MIN_FLOAT;

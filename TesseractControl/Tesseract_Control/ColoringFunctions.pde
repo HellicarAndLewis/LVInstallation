@@ -1,4 +1,4 @@
-//Functions to Shade Tesseract (this is where the fun happens)
+//Color the actual Pixels of the Tesseract
 
 //Rainbow colors
 void colorRainbow()
@@ -77,25 +77,6 @@ void shadeLightPoints(LED myLED, ArrayList<lightPoint> newlightPoints)
   myLED.shade = color(red, green, blue);
 }
 */
-void shadeLightPoints(LED myLED, ArrayList<lightPoint> newlightPoints)
-{
-  float red = 0;
-  float green = 0;
-  float blue = 0;
-  for(int j = 0; j < newlightPoints.size(); j++)
-  {
-    lightPoint lightSource = newlightPoints.get(j);
-    float dist = dist(myLED.realLocation.x, myLED.realLocation.y, myLED.realLocation.z, lightSource.location.x, lightSource.location.y, lightSource.location.z);
-    if(dist < lightSource.intensity.value)
-    {
-      dist = map( dist, 0, lightSource.intensity.value, 1, 0 );
-      red = red( myLED.trueColor ) * dist;
-      green = green( myLED.trueColor ) * dist;
-      blue = blue( myLED.trueColor ) *   dist;
-    }
-    myLED.shade = color(red, green, blue);
-  }
-}
 
 void colorOnePoint(int index, color newColor)
 {
@@ -169,10 +150,6 @@ void colorByZCuttoff(LED myLED, float cuttoff, color newColor, boolean above)
   }
 }
 */
-void shadeFullBrightness(LED myLED)
-{
-  myLED.shade = myLED.trueColor;
-}
 
 /*
 void normalizeShading()

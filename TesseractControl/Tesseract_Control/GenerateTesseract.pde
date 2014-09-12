@@ -30,25 +30,6 @@ void generateTesseract()
   PVector spacingVectorsConnectionsY = new PVector(0, sideLengthConnections/lightsPerStripConnections, 0);
   PVector spacingVectorsConnectionsZ = new PVector(0, 0, sideLengthConnections/lightsPerStripConnections);
   
-  //Generate All Vertices
-  //PVector vertices[0] = vertices[0];
-  //PVector vertices[1] = new PVector(-100, 100, 100);
-  //PVector vertices[2] = new PVector(-100, 100, -100);
-  //PVector vertices[3] = new PVector(100, 100, -100);
-  //PVector vertices[4] = new PVector(100, -100, 100);
-  //PVector vertices[5] = new PVector(-100, -100, 100);
-  //PVector vertices[6] = new PVector(-100, -100, -100);
-  //PVector vertices[7] = new PVector(100, -100, -100);
-  
-  //PVector vertices[8] = new PVector(50, 50, 50);
-  //PVector vertices[9] = new PVector(-50, 50, 50);
-  //PVector vertices[10] = new PVector(-50, 50, -50);
-  //PVector vertices[11] = new PVector(50, 50, -50);
-  //PVector vertices[12] = new PVector(50, -50, 50);
-  //PVector vertices[13] = new PVector(-50, -50, 50);
-  //PVector vertices[14] = new PVector(-50, -50, -50);
-  //PVector vertices[15] = new PVector(50, -50, -50);
-  
   //Dummy mapLocation Variable to be set later because generating an LED wants a map location too
   PVector mapLocation = new PVector(0, 0);
   

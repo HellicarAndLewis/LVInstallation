@@ -11,19 +11,20 @@ OPC opc;
 ArrayList<lightPoint> lightPoints;
 boolean mapOn;
 boolean randomOn;
+boolean debugOn = false;
 
-int newAnimationCheck;
-
-int shaders;
+int animationCheck = 1;
 
 Minim minim;
 AudioPlayer player;
 BeatDetect beat;
 WaveformRenderer waveform;
 BeatListener beatListener;
+FFT fft;
 
 ArrayList<lightPoint> movingLights;
 ArrayList<lightPoint> staticLights;
+ArrayList<lightBlock> lightBlocks;
 
 LED[] LEDs;
 
@@ -35,8 +36,6 @@ float closestTextY;
 int savedTime = 0;
 int vertexIndex = 0;
 
-boolean shrinkSetupDone;
-
 PVector[] vertices;
 
 void setup()
@@ -44,8 +43,6 @@ void setup()
   size(1000, 1000, P3D);
   mapOn = true;
   randomOn = false;
-  
-  shaders = 0;
   
   vertices = new PVector[16];
   vertices[0] = new PVector(100, 100, 100);
@@ -69,13 +66,15 @@ void setup()
   
   minim = new Minim(this);
   
-  player = minim.loadFile("LVTrack02.mp3", 512);
+  player = minim.loadFile("LVTrack01.mp3", 512);
   player.addListener(waveform);
   
   LEDs = new LED[460]; // Initialize Full Tesseract Array (460 = number of LEDs)
+  
   lightPoints = new ArrayList<lightPoint>();
   movingLights = new ArrayList<lightPoint>();
   staticLights = new ArrayList<lightPoint>();
+  lightBlocks = new ArrayList<lightBlock>();
   
   opc = new OPC(this, "127.0.0.1", 7890);
   
@@ -85,26 +84,14 @@ void setup()
   generateTesseract();
   setCornerConnections();
   
+  colorRainbow();
+  
   //start up minim - for playing music
   minim = new Minim(this);
   beat = new BeatDetect(player.bufferSize(), player.sampleRate());
-  
-  //Shade Tesseract Initially
-  
-  colorRainbow();
-  /*
-  for(int i = 0; i < LEDs.length; i++)
-  {
-    LED myLED = LEDs[i];
-    colorRandomBlackAndWhite(myLED);
-  }
-  */
-  //shadeSolid(127, 127, 127);
-  //colorCornersRed();
-  //colorRandom();
-  //shadeChargeUp();
-  //pairOfSpotsSetup(300);
-  //redBouncersSetupStaticLights();
+  beat.setSensitivity(500);
+  fft = new FFT( player.bufferSize(), player.sampleRate() );
+  fft.linAverages( 30 );
   
   setupLEDs();
   
@@ -117,20 +104,16 @@ void draw()
 {
   background(0);
   
-  beat.detect(player.mix);
+  beat.detect( player.mix );
+  fft.forward( player.mix );
   
-  //println(millis() % 1000);
-  if(millis() % 10000 < 200)
-  {
-    newAnimationCheck = int(random(3));
-    colorCheck = int(random(
-    lightPoints.clear();
-    movingLights.clear();
-    staticLights.clear();
-    println(newAnimationCheck);
-  }
+  //colorRandomBlackAndWhite();
+  //equalizer3DRun();
+  //quadBoxRotRun();
+  //quadBoxRotRun();
+  //octoBoxRun();
   
-  switch(newAnimationCheck)
+  switch(animationCheck)
   {
     case 0:
       fillThenDance();  
@@ -141,25 +124,32 @@ void draw()
     case 2:
       popOnBeat();
       break;
+    case 3: 
+      equalizer3DRun();
+      break;
+    case 4:
+      quadBoxRotRun();
+      break;
+    default:
+      break;
+      
   }
-  //PopThenDrop();
-  //pairOfSpotsRun(200);
-  //shadeCornersOnBeat();
-  /*
-  if(millis() > 11000)
-  {
-    shrinkToCenterSetup();
-  }
-  if(staticLights.size() > 0)
-  {
-    shrinkToCenterRun();
-  }
-  */
+  
   for(int i = 0; i < LEDs.length; i++)
   {
     LED myLED = LEDs[i];
     //shadeFullBrightness(myLED);
+    shadeBlack(myLED);
     shadeLightPoints(myLED, lightPoints);
+    //colorCornersRed();
+    //shadeFullBrightness(myLED);
+    //shadeWithinBlock(myLED, lightBlocks.get(0));
+    
+    for(int j = 0; j < lightBlocks.size(); j++)
+    {
+      shadeWithinBlock(myLED, lightBlocks.get(j));
+    }
+    
   }
   
   //Draw 3D version all the time
@@ -167,6 +157,7 @@ void draw()
   {
     LEDs[i].draw3D(width*0.75, height*0.75);
   }
+  
   //Draw 2D map when mapOn is toggled
   if(mapOn)
   {
@@ -204,28 +195,59 @@ void draw()
     LED myLED = LEDs[closestText];
     LEDs[myLED.nextLEDIndex].stroke = 255;
   }
-  /*
-  stroke(255);
-  for(int i = 0; i < player.bufferSize() - 1; i++)
-  {
-    float x1 = map( i, 0, player.bufferSize(), width/2, width );
-    float x2 = map( i+1, 0, player.bufferSize(), width/2, width );
-    line( x1, 50 + player.left.get(i)*50, x2, 50 + player.left.get(i+1)*50 );
-    line( x1, 150 + player.right.get(i)*50, x2, 150 + player.right.get(i+1)*50 );
-  }
-  */
+  
   waveform.display();
   
-  for(int i = 0; i < lightPoints.size(); i++)
+  if(debugOn)
   {
-    //lightPoints.get(i).display(width*0.75, height*0.75, 0);
+    for(int i = 0; i < lightPoints.size(); i++)
+    {
+      lightPoints.get(i).display(width*0.75, height*0.75, 0);
+    }
+    for(int i = 0; i < lightBlocks.size(); i++)
+    {
+      lightBlocks.get(i).display(width*0.75, height*0.75, 0);
+    }
   }
 }
 
 void keyPressed()
 {
-  //toggle drawing the 2D map
-  mapOn = !mapOn;
+  switch(key)
+  {
+    case ' ':
+      mapOn = !mapOn;
+      if(player.isPlaying()) player.pause();
+      else  player.play();
+      break;
+    case 'd':
+      debugOn = !debugOn;
+      break;
+    case '1':
+      clearLights();
+      animationCheck = 0;
+      break;
+    case '2':
+      clearLights();
+      animationCheck = 1;
+      break;
+    case '3':
+      clearLights();
+      animationCheck = 2;
+      break;
+    case '4':
+      clearLights();
+      equalizer3DSetup();
+      animationCheck = 3;
+      break;
+    case '5':
+      clearLights();
+      quadBoxRotSetup();
+      animationCheck = 4;
+      break;
+    default:
+      break;
+  }
 }
 
 void setupLEDs()
@@ -234,5 +256,12 @@ void setupLEDs()
   {
     opc.led(i, (int)LEDs[i].mapLocation.x, (int)LEDs[i].mapLocation.y);
   }
+}
+void clearLights()
+{
+  lightPoints.clear();
+  movingLights.clear();
+  staticLights.clear();
+  lightBlocks.clear();
 }
 
