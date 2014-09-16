@@ -37,13 +37,71 @@ void generateTesseract()
   int LEDindex = 0;
   
   //Begin generating Tesseract in order of wiring
-  //-----------------------ENTRY A-----------------------
   
-  //A to B
+    //-----------------------ENTRY H-----------------------
+  
+  //H to D
+  for(int i = 0; i < lightsPerStripOutside; i++)
+  {
+    PVector newSpacingVector = PVector.mult(spacingVectorsOutsideY, i);
+    PVector newRealLocation = PVector.add(vertices[7], newSpacingVector);
+    newRealLocation.add(spacingVectorsOutsideY);
+    LED newLED = new LED(newRealLocation, mapLocation);
+    newLED.outside = true;
+    if(i == 0)
+    {
+      newLED.isCorner = true;
+      newLED.nextLEDIndex = LEDindex+1;
+    }
+    else if(i == lightsPerStripOutside - 1)
+    {
+      newLED.isCorner = true;
+      newLED.lastLEDIndex = LEDindex-1;
+    }
+    else
+    {
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
+    }
+    setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
+    LEDs[LEDindex] = newLED;
+    LEDindex++;
+  }
+  //D to A
+  for(int i = 0; i < lightsPerStripOutside; i++)
+  {
+    PVector newSpacingVector = PVector.mult(spacingVectorsOutsideZ, i);
+    PVector newRealLocation = PVector.add(vertices[3], newSpacingVector);
+    newRealLocation.add(spacingVectorsOutsideZ);
+    LED newLED = new LED(newRealLocation, mapLocation);
+    newLED.outside = true;
+    if(i == 0)
+    {
+      newLED.isCorner = true;
+      newLED.nextLEDIndex = LEDindex+1;
+    }
+    else if(i == lightsPerStripOutside - 1)
+    {
+      newLED.isCorner = true;
+      newLED.lastLEDIndex = LEDindex-1;
+    }
+    else
+    {
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
+    }
+    setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
+    LEDs[LEDindex] = newLED;
+    LEDindex++;
+  }
+  
+  //H to G
   for(int i = 0; i < lightsPerStripOutside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsOutsideX, i);
-    PVector newRealLocation = PVector.sub(vertices[0], newSpacingVector);
+    PVector newRealLocation = PVector.sub(vertices[7], newSpacingVector);
     newRealLocation.sub(spacingVectorsOutsideX);
     LED newLED = new LED(newRealLocation, mapLocation);
     newLED.outside = true;
@@ -67,12 +125,12 @@ void generateTesseract()
     LEDs[LEDindex] = newLED;
     LEDindex++;
   }
-  //B to C
+  //G to F
   for(int i = 0; i < lightsPerStripOutside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsOutsideZ, i);
-    PVector newRealLocation = PVector.sub(vertices[1], newSpacingVector);
-    newRealLocation.sub(spacingVectorsOutsideZ);
+    PVector newRealLocation = PVector.add(vertices[6], newSpacingVector);
+    newRealLocation.add(spacingVectorsOutsideZ);
     LED newLED = new LED(newRealLocation, mapLocation);
     newLED.outside = true;
     if(i == 0)
@@ -96,141 +154,21 @@ void generateTesseract()
     LEDindex++;
   }
   
-  //A to E
-  for(int i = 0; i < lightsPerStripOutside; i++)
-  {
-    PVector newSpacingVector = PVector.mult(spacingVectorsOutsideY, i);
-    PVector newRealLocation = PVector.sub(vertices[0], newSpacingVector);
-    newRealLocation.sub(spacingVectorsOutsideY);
-    LED newLED = new LED(newRealLocation, mapLocation);
-    newLED.outside = true;
-    setTesseractMap(newLED);
-    if(i == 0)
-    {
-      newLED.isCorner = true;
-      newLED.nextLEDIndex = LEDindex+1;
-    }
-    else if(i == lightsPerStripOutside - 1)
-    {
-      newLED.isCorner = true;
-      newLED.lastLEDIndex = LEDindex-1;
-    }
-    else
-    {
-      newLED.nextLEDIndex = LEDindex+1;
-      newLED.lastLEDIndex= LEDindex-1;
-    }
-    LEDs[LEDindex] = newLED;
-    newLED.LEDIndex = LEDindex;
-    LEDindex++;
-  }
-  //E to H
-  for(int i = 0; i < lightsPerStripOutside; i++)
-  {
-    PVector newSpacingVector = PVector.mult(spacingVectorsOutsideZ, i);
-    PVector newRealLocation = PVector.sub(vertices[4], newSpacingVector);
-    newRealLocation.sub(spacingVectorsOutsideZ);
-    LED newLED = new LED(newRealLocation, mapLocation);
-    newLED.outside = true;
-    if(i == 0)
-    {
-      newLED.isCorner = true;
-      newLED.nextLEDIndex = LEDindex+1;
-    }
-    else if(i == lightsPerStripOutside - 1)
-    {
-      newLED.isCorner = true;
-      newLED.lastLEDIndex = LEDindex-1;
-    }
-    else
-    {
-      newLED.nextLEDIndex = LEDindex+1;
-      newLED.lastLEDIndex= LEDindex-1;
-    }
-    setTesseractMap(newLED);
-    newLED.LEDIndex = LEDindex;
-    LEDs[LEDindex] = newLED;
-    LEDindex++;
-  }
-  
-  //B to K
+  //H to R
   for(int i = 0; i < lightsPerStripConnections; i++)
   {
     PVector newSpacingVectorX = PVector.mult(spacingVectorsConnectionsX, i);
     PVector newSpacingVectorY = PVector.mult(spacingVectorsConnectionsY, i);
     PVector newSpacingVectorZ = PVector.mult(spacingVectorsConnectionsZ, i);
     
-    PVector newRealLocation = PVector.add(vertices[1], newSpacingVectorX);
-    newRealLocation.sub(newSpacingVectorY);
-    newRealLocation.sub(newSpacingVectorZ);
-    newRealLocation.add(spacingVectorsConnectionsX);
-    newRealLocation.add(spacingVectorsConnectionsX);
-    newRealLocation.sub(spacingVectorsConnectionsY);
-    newRealLocation.sub(spacingVectorsConnectionsY);
-    newRealLocation.sub(spacingVectorsConnectionsZ);
-    newRealLocation.sub(spacingVectorsConnectionsZ);
-    LED newLED = new LED(newRealLocation, mapLocation);
-    newLED.connections = true;
-    if(i == 0)
-    {
-      newLED.isCorner = true;
-      newLED.nextLEDIndex = LEDindex+1;
-    }
-    else if(i == lightsPerStripConnections - 1)
-    {
-      newLED.isCorner = true;
-      newLED.lastLEDIndex = LEDindex-1;
-    }
-    else
-    {
-      newLED.nextLEDIndex = LEDindex+1;
-      newLED.lastLEDIndex= LEDindex-1;
-    }
-    setTesseractMap(newLED);
-    newLED.LEDIndex = LEDindex;
-    LEDs[LEDindex] = newLED;
-    LEDindex++;
-  }
-  //K to P
-  for(int i = 0; i < lightsPerStripInside; i++)
-  {
-    PVector newSpacingVector = PVector.mult(spacingVectorsInsideY, i);
-    PVector newRealLocation = PVector.sub(vertices[9], newSpacingVector);
-    newRealLocation.sub(spacingVectorsOutsideY);
-    LED newLED = new LED(newRealLocation, mapLocation);
-    newLED.inside = true;
-    if(i == 0)
-    {
-      newLED.isCorner = true;
-      newLED.nextLEDIndex = LEDindex+1;
-    }
-    else if(i == lightsPerStripInside - 1)
-    {
-      newLED.isCorner = true;
-      newLED.lastLEDIndex = LEDindex-1;
-    }
-    else
-    {
-      newLED.nextLEDIndex = LEDindex+1;
-      newLED.lastLEDIndex = LEDindex-1;
-    }
-    setTesseractMap(newLED);
-    newLED.LEDIndex = LEDindex;
-    LEDs[LEDindex] = newLED;
-    LEDindex++;
-  }
-  //P to F
-  for(int i = 0; i < lightsPerStripConnections; i++)
-  {
-    PVector newSpacingVectorX = PVector.mult(spacingVectorsConnectionsX, i);
-    PVector newSpacingVectorY = PVector.mult(spacingVectorsConnectionsY, i);
-    PVector newSpacingVectorZ = PVector.mult(spacingVectorsConnectionsZ, i);
-    
-    PVector newRealLocation = PVector.sub(vertices[13], newSpacingVectorX);
-    newRealLocation.sub(newSpacingVectorY);
+    PVector newRealLocation = PVector.sub(vertices[7], newSpacingVectorX);
+    newRealLocation.add(newSpacingVectorY);
     newRealLocation.add(newSpacingVectorZ);
     newRealLocation.sub(spacingVectorsConnectionsX);
-    newRealLocation.sub(spacingVectorsConnectionsY);
+    newRealLocation.sub(spacingVectorsConnectionsX);
+    newRealLocation.add(spacingVectorsConnectionsY);
+    newRealLocation.add(spacingVectorsConnectionsY);
+    newRealLocation.add(spacingVectorsConnectionsZ);
     newRealLocation.add(spacingVectorsConnectionsZ);
     LED newLED = new LED(newRealLocation, mapLocation);
     newLED.connections = true;
@@ -247,7 +185,70 @@ void generateTesseract()
     else
     {
       newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
+    }
+    setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
+    LEDs[LEDindex] = newLED;
+    LEDindex++;
+  }
+  //R to M
+  for(int i = 0; i < lightsPerStripInside; i++)
+  {
+    PVector newSpacingVector = PVector.mult(spacingVectorsInsideY, i);
+    PVector newRealLocation = PVector.add(vertices[15], newSpacingVector);
+    newRealLocation.add(spacingVectorsOutsideY);
+    LED newLED = new LED(newRealLocation, mapLocation);
+    newLED.inside = true;
+    if(i == 0)
+    {
+      newLED.isCorner = true;
+      newLED.nextLEDIndex = LEDindex+1;
+    }
+    else if(i == lightsPerStripInside - 1)
+    {
+      newLED.isCorner = true;
       newLED.lastLEDIndex = LEDindex-1;
+    }
+    else
+    {
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
+    }
+    setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
+    LEDs[LEDindex] = newLED;
+    LEDindex++;
+  }
+  //M to D
+  for(int i = 0; i < lightsPerStripConnections; i++)
+  {
+    PVector newSpacingVectorX = PVector.mult(spacingVectorsConnectionsX, i);
+    PVector newSpacingVectorY = PVector.mult(spacingVectorsConnectionsY, i);
+    PVector newSpacingVectorZ = PVector.mult(spacingVectorsConnectionsZ, i);
+    
+    PVector newRealLocation = PVector.add(vertices[11], newSpacingVectorX);
+    newRealLocation.add(newSpacingVectorY);
+    newRealLocation.sub(newSpacingVectorZ);
+    newRealLocation.add(spacingVectorsConnectionsX);
+    newRealLocation.add(spacingVectorsConnectionsY);
+    newRealLocation.sub(spacingVectorsConnectionsZ);
+    LED newLED = new LED(newRealLocation, mapLocation);
+    newLED.connections = true;
+    if(i == 0)
+    {
+      newLED.isCorner = true;
+      newLED.nextLEDIndex = LEDindex+1;
+    }
+    else if(i == lightsPerStripConnections - 1)
+    {
+      newLED.isCorner = true;
+      newLED.lastLEDIndex = LEDindex-1;
+    }
+    else
+    {
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
     }
     setTesseractMap(newLED);
     newLED.LEDIndex = LEDindex;
@@ -529,6 +530,223 @@ void generateTesseract()
     LEDindex++;
   }
   
+  //-----------------------ENTRY A-----------------------
+  //A to B
+  for(int i = 0; i < lightsPerStripOutside; i++)
+  {
+    PVector newSpacingVector = PVector.mult(spacingVectorsOutsideX, i);
+    PVector newRealLocation = PVector.sub(vertices[0], newSpacingVector);
+    newRealLocation.sub(spacingVectorsOutsideX);
+    LED newLED = new LED(newRealLocation, mapLocation);
+    newLED.outside = true;
+    if(i == 0)
+    {
+      newLED.isCorner = true;
+      newLED.nextLEDIndex = LEDindex+1;
+    }
+    else if(i == lightsPerStripOutside - 1)
+    {
+      newLED.isCorner = true;
+      newLED.lastLEDIndex = LEDindex-1;
+    }
+    else
+    {
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
+    }
+    setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
+    LEDs[LEDindex] = newLED;
+    LEDindex++;
+  }
+  //B to C
+  for(int i = 0; i < lightsPerStripOutside; i++)
+  {
+    PVector newSpacingVector = PVector.mult(spacingVectorsOutsideZ, i);
+    PVector newRealLocation = PVector.sub(vertices[1], newSpacingVector);
+    newRealLocation.sub(spacingVectorsOutsideZ);
+    LED newLED = new LED(newRealLocation, mapLocation);
+    newLED.outside = true;
+    if(i == 0)
+    {
+      newLED.isCorner = true;
+      newLED.nextLEDIndex = LEDindex+1;
+    }
+    else if(i == lightsPerStripOutside - 1)
+    {
+      newLED.isCorner = true;
+      newLED.lastLEDIndex = LEDindex-1;
+    }
+    else
+    {
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
+    }
+    setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
+    LEDs[LEDindex] = newLED;
+    LEDindex++;
+  }
+  
+  //A to E
+  for(int i = 0; i < lightsPerStripOutside; i++)
+  {
+    PVector newSpacingVector = PVector.mult(spacingVectorsOutsideY, i);
+    PVector newRealLocation = PVector.sub(vertices[0], newSpacingVector);
+    newRealLocation.sub(spacingVectorsOutsideY);
+    LED newLED = new LED(newRealLocation, mapLocation);
+    newLED.outside = true;
+    setTesseractMap(newLED);
+    if(i == 0)
+    {
+      newLED.isCorner = true;
+      newLED.nextLEDIndex = LEDindex+1;
+    }
+    else if(i == lightsPerStripOutside - 1)
+    {
+      newLED.isCorner = true;
+      newLED.lastLEDIndex = LEDindex-1;
+    }
+    else
+    {
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
+    }
+    LEDs[LEDindex] = newLED;
+    newLED.LEDIndex = LEDindex;
+    LEDindex++;
+  }
+  //E to H
+  for(int i = 0; i < lightsPerStripOutside; i++)
+  {
+    PVector newSpacingVector = PVector.mult(spacingVectorsOutsideZ, i);
+    PVector newRealLocation = PVector.sub(vertices[4], newSpacingVector);
+    newRealLocation.sub(spacingVectorsOutsideZ);
+    LED newLED = new LED(newRealLocation, mapLocation);
+    newLED.outside = true;
+    if(i == 0)
+    {
+      newLED.isCorner = true;
+      newLED.nextLEDIndex = LEDindex+1;
+    }
+    else if(i == lightsPerStripOutside - 1)
+    {
+      newLED.isCorner = true;
+      newLED.lastLEDIndex = LEDindex-1;
+    }
+    else
+    {
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
+    }
+    setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
+    LEDs[LEDindex] = newLED;
+    LEDindex++;
+  }
+  
+  //B to K
+  for(int i = 0; i < lightsPerStripConnections; i++)
+  {
+    PVector newSpacingVectorX = PVector.mult(spacingVectorsConnectionsX, i);
+    PVector newSpacingVectorY = PVector.mult(spacingVectorsConnectionsY, i);
+    PVector newSpacingVectorZ = PVector.mult(spacingVectorsConnectionsZ, i);
+    
+    PVector newRealLocation = PVector.add(vertices[1], newSpacingVectorX);
+    newRealLocation.sub(newSpacingVectorY);
+    newRealLocation.sub(newSpacingVectorZ);
+    newRealLocation.add(spacingVectorsConnectionsX);
+    newRealLocation.add(spacingVectorsConnectionsX);
+    newRealLocation.sub(spacingVectorsConnectionsY);
+    newRealLocation.sub(spacingVectorsConnectionsY);
+    newRealLocation.sub(spacingVectorsConnectionsZ);
+    newRealLocation.sub(spacingVectorsConnectionsZ);
+    LED newLED = new LED(newRealLocation, mapLocation);
+    newLED.connections = true;
+    if(i == 0)
+    {
+      newLED.isCorner = true;
+      newLED.nextLEDIndex = LEDindex+1;
+    }
+    else if(i == lightsPerStripConnections - 1)
+    {
+      newLED.isCorner = true;
+      newLED.lastLEDIndex = LEDindex-1;
+    }
+    else
+    {
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex= LEDindex-1;
+    }
+    setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
+    LEDs[LEDindex] = newLED;
+    LEDindex++;
+  }
+  //K to P
+  for(int i = 0; i < lightsPerStripInside; i++)
+  {
+    PVector newSpacingVector = PVector.mult(spacingVectorsInsideY, i);
+    PVector newRealLocation = PVector.sub(vertices[9], newSpacingVector);
+    newRealLocation.sub(spacingVectorsOutsideY);
+    LED newLED = new LED(newRealLocation, mapLocation);
+    newLED.inside = true;
+    if(i == 0)
+    {
+      newLED.isCorner = true;
+      newLED.nextLEDIndex = LEDindex+1;
+    }
+    else if(i == lightsPerStripInside - 1)
+    {
+      newLED.isCorner = true;
+      newLED.lastLEDIndex = LEDindex-1;
+    }
+    else
+    {
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex = LEDindex-1;
+    }
+    setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
+    LEDs[LEDindex] = newLED;
+    LEDindex++;
+  }
+  //P to F
+  for(int i = 0; i < lightsPerStripConnections; i++)
+  {
+    PVector newSpacingVectorX = PVector.mult(spacingVectorsConnectionsX, i);
+    PVector newSpacingVectorY = PVector.mult(spacingVectorsConnectionsY, i);
+    PVector newSpacingVectorZ = PVector.mult(spacingVectorsConnectionsZ, i);
+    
+    PVector newRealLocation = PVector.sub(vertices[13], newSpacingVectorX);
+    newRealLocation.sub(newSpacingVectorY);
+    newRealLocation.add(newSpacingVectorZ);
+    newRealLocation.sub(spacingVectorsConnectionsX);
+    newRealLocation.sub(spacingVectorsConnectionsY);
+    newRealLocation.add(spacingVectorsConnectionsZ);
+    LED newLED = new LED(newRealLocation, mapLocation);
+    newLED.connections = true;
+    if(i == 0)
+    {
+      newLED.isCorner = true;
+      newLED.nextLEDIndex = LEDindex+1;
+    }
+    else if(i == lightsPerStripConnections - 1)
+    {
+      newLED.isCorner = true;
+      newLED.lastLEDIndex = LEDindex-1;
+    }
+    else
+    {
+      newLED.nextLEDIndex = LEDindex+1;
+      newLED.lastLEDIndex = LEDindex-1;
+    }
+    setTesseractMap(newLED);
+    newLED.LEDIndex = LEDindex;
+    LEDs[LEDindex] = newLED;
+    LEDindex++;
+  }
+  
   //-----------------------ENTRY E-----------------------
   
   //E to F
@@ -787,224 +1005,6 @@ void generateTesseract()
       newLED.nextLEDIndex = LEDindex+1;
     }
     else if(i == lightsPerStripInside - 1)
-    {
-      newLED.isCorner = true;
-      newLED.lastLEDIndex = LEDindex-1;
-    }
-    else
-    {
-      newLED.nextLEDIndex = LEDindex+1;
-      newLED.lastLEDIndex= LEDindex-1;
-    }
-    setTesseractMap(newLED);
-    newLED.LEDIndex = LEDindex;
-    LEDs[LEDindex] = newLED;
-    LEDindex++;
-  }
-  
-  //-----------------------ENTRY H-----------------------
-  
-  //H to D
-  for(int i = 0; i < lightsPerStripOutside; i++)
-  {
-    PVector newSpacingVector = PVector.mult(spacingVectorsOutsideY, i);
-    PVector newRealLocation = PVector.add(vertices[7], newSpacingVector);
-    newRealLocation.add(spacingVectorsOutsideY);
-    LED newLED = new LED(newRealLocation, mapLocation);
-    newLED.outside = true;
-    if(i == 0)
-    {
-      newLED.isCorner = true;
-      newLED.nextLEDIndex = LEDindex+1;
-    }
-    else if(i == lightsPerStripOutside - 1)
-    {
-      newLED.isCorner = true;
-      newLED.lastLEDIndex = LEDindex-1;
-    }
-    else
-    {
-      newLED.nextLEDIndex = LEDindex+1;
-      newLED.lastLEDIndex= LEDindex-1;
-    }
-    setTesseractMap(newLED);
-    newLED.LEDIndex = LEDindex;
-    LEDs[LEDindex] = newLED;
-    LEDindex++;
-  }
-  //D to A
-  for(int i = 0; i < lightsPerStripOutside; i++)
-  {
-    PVector newSpacingVector = PVector.mult(spacingVectorsOutsideZ, i);
-    PVector newRealLocation = PVector.add(vertices[3], newSpacingVector);
-    newRealLocation.add(spacingVectorsOutsideZ);
-    LED newLED = new LED(newRealLocation, mapLocation);
-    newLED.outside = true;
-    if(i == 0)
-    {
-      newLED.isCorner = true;
-      newLED.nextLEDIndex = LEDindex+1;
-    }
-    else if(i == lightsPerStripOutside - 1)
-    {
-      newLED.isCorner = true;
-      newLED.lastLEDIndex = LEDindex-1;
-    }
-    else
-    {
-      newLED.nextLEDIndex = LEDindex+1;
-      newLED.lastLEDIndex= LEDindex-1;
-    }
-    setTesseractMap(newLED);
-    newLED.LEDIndex = LEDindex;
-    LEDs[LEDindex] = newLED;
-    LEDindex++;
-  }
-  
-  //H to G
-  for(int i = 0; i < lightsPerStripOutside; i++)
-  {
-    PVector newSpacingVector = PVector.mult(spacingVectorsOutsideX, i);
-    PVector newRealLocation = PVector.sub(vertices[7], newSpacingVector);
-    newRealLocation.sub(spacingVectorsOutsideX);
-    LED newLED = new LED(newRealLocation, mapLocation);
-    newLED.outside = true;
-    if(i == 0)
-    {
-      newLED.isCorner = true;
-      newLED.nextLEDIndex = LEDindex+1;
-    }
-    else if(i == lightsPerStripOutside - 1)
-    {
-      newLED.isCorner = true;
-      newLED.lastLEDIndex = LEDindex-1;
-    }
-    else
-    {
-      newLED.nextLEDIndex = LEDindex+1;
-      newLED.lastLEDIndex= LEDindex-1;
-    }
-    setTesseractMap(newLED);
-    newLED.LEDIndex = LEDindex;
-    LEDs[LEDindex] = newLED;
-    LEDindex++;
-  }
-  //G to F
-  for(int i = 0; i < lightsPerStripOutside; i++)
-  {
-    PVector newSpacingVector = PVector.mult(spacingVectorsOutsideZ, i);
-    PVector newRealLocation = PVector.add(vertices[6], newSpacingVector);
-    newRealLocation.add(spacingVectorsOutsideZ);
-    LED newLED = new LED(newRealLocation, mapLocation);
-    newLED.outside = true;
-    if(i == 0)
-    {
-      newLED.isCorner = true;
-      newLED.nextLEDIndex = LEDindex+1;
-    }
-    else if(i == lightsPerStripOutside - 1)
-    {
-      newLED.isCorner = true;
-      newLED.lastLEDIndex = LEDindex-1;
-    }
-    else
-    {
-      newLED.nextLEDIndex = LEDindex+1;
-      newLED.lastLEDIndex= LEDindex-1;
-    }
-    setTesseractMap(newLED);
-    newLED.LEDIndex = LEDindex;
-    LEDs[LEDindex] = newLED;
-    LEDindex++;
-  }
-  
-  //H to R
-  for(int i = 0; i < lightsPerStripConnections; i++)
-  {
-    PVector newSpacingVectorX = PVector.mult(spacingVectorsConnectionsX, i);
-    PVector newSpacingVectorY = PVector.mult(spacingVectorsConnectionsY, i);
-    PVector newSpacingVectorZ = PVector.mult(spacingVectorsConnectionsZ, i);
-    
-    PVector newRealLocation = PVector.sub(vertices[7], newSpacingVectorX);
-    newRealLocation.add(newSpacingVectorY);
-    newRealLocation.add(newSpacingVectorZ);
-    newRealLocation.sub(spacingVectorsConnectionsX);
-    newRealLocation.sub(spacingVectorsConnectionsX);
-    newRealLocation.add(spacingVectorsConnectionsY);
-    newRealLocation.add(spacingVectorsConnectionsY);
-    newRealLocation.add(spacingVectorsConnectionsZ);
-    newRealLocation.add(spacingVectorsConnectionsZ);
-    LED newLED = new LED(newRealLocation, mapLocation);
-    newLED.connections = true;
-    if(i == 0)
-    {
-      newLED.isCorner = true;
-      newLED.nextLEDIndex = LEDindex+1;
-    }
-    else if(i == lightsPerStripConnections - 1)
-    {
-      newLED.isCorner = true;
-      newLED.lastLEDIndex = LEDindex-1;
-    }
-    else
-    {
-      newLED.nextLEDIndex = LEDindex+1;
-      newLED.lastLEDIndex= LEDindex-1;
-    }
-    setTesseractMap(newLED);
-    newLED.LEDIndex = LEDindex;
-    LEDs[LEDindex] = newLED;
-    LEDindex++;
-  }
-  //R to M
-  for(int i = 0; i < lightsPerStripInside; i++)
-  {
-    PVector newSpacingVector = PVector.mult(spacingVectorsInsideY, i);
-    PVector newRealLocation = PVector.add(vertices[15], newSpacingVector);
-    newRealLocation.add(spacingVectorsOutsideY);
-    LED newLED = new LED(newRealLocation, mapLocation);
-    newLED.inside = true;
-    if(i == 0)
-    {
-      newLED.isCorner = true;
-      newLED.nextLEDIndex = LEDindex+1;
-    }
-    else if(i == lightsPerStripInside - 1)
-    {
-      newLED.isCorner = true;
-      newLED.lastLEDIndex = LEDindex-1;
-    }
-    else
-    {
-      newLED.nextLEDIndex = LEDindex+1;
-      newLED.lastLEDIndex= LEDindex-1;
-    }
-    setTesseractMap(newLED);
-    newLED.LEDIndex = LEDindex;
-    LEDs[LEDindex] = newLED;
-    LEDindex++;
-  }
-  //M to D
-  for(int i = 0; i < lightsPerStripConnections; i++)
-  {
-    PVector newSpacingVectorX = PVector.mult(spacingVectorsConnectionsX, i);
-    PVector newSpacingVectorY = PVector.mult(spacingVectorsConnectionsY, i);
-    PVector newSpacingVectorZ = PVector.mult(spacingVectorsConnectionsZ, i);
-    
-    PVector newRealLocation = PVector.add(vertices[11], newSpacingVectorX);
-    newRealLocation.add(newSpacingVectorY);
-    newRealLocation.sub(newSpacingVectorZ);
-    newRealLocation.add(spacingVectorsConnectionsX);
-    newRealLocation.add(spacingVectorsConnectionsY);
-    newRealLocation.sub(spacingVectorsConnectionsZ);
-    LED newLED = new LED(newRealLocation, mapLocation);
-    newLED.connections = true;
-    if(i == 0)
-    {
-      newLED.isCorner = true;
-      newLED.nextLEDIndex = LEDindex+1;
-    }
-    else if(i == lightsPerStripConnections - 1)
     {
       newLED.isCorner = true;
       newLED.lastLEDIndex = LEDindex-1;

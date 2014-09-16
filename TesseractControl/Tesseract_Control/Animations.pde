@@ -8,7 +8,7 @@ void popOnBeat()
     lightPoints.add(newLight);
   }
    
-  if(lightPoints.size() > 2)
+  if(lightPoints.size() > 1)
   {
     lightPoints.remove(0);
     lightPoints.remove(0);

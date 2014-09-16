@@ -66,7 +66,7 @@ void setup()
   
   minim = new Minim(this);
   
-  player = minim.loadFile("Blondish01.mp3", 512);
+  player = minim.loadFile("LVTrack01.mp3", 512);
   player.addListener(waveform);
   
   LEDs = new LED[460]; // Initialize Full Tesseract Array (460 = number of LEDs)
@@ -268,7 +268,7 @@ void keyPressed()
       break;
     case 't':
       colorWiring();
-      break;  
+      break;
     case 'l':
       fullOn = !fullOn;
     default:
