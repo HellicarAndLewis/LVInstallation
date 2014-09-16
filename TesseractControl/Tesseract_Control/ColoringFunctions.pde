@@ -19,11 +19,29 @@ void colorRandom(LED myLED)
     myLED.trueColor = color(random(0, 255), random(0, 255), random(0, 255));
 }
 
+void colorRandom()
+{
+  for(int i = 0; i < LEDs.length; i++)
+  {
+    LEDs[i].trueColor = color(random(0, 255), random(0, 255), random(0, 255));
+  }
+}
+
 //random black and white
 void colorRandomBlackAndWhite(LED myLED)
 {
     float colour = random(0,255);
     myLED.trueColor = color(colour, colour, colour);
+}
+
+//random black and white
+void colorRandomBlackAndWhite()
+{
+  for(int i = 0; i < LEDs.length; i++)
+  {
+    float colour = random(0,255);
+    LEDs[i].trueColor = color(colour, colour, colour);
+  }
 }
 
 //all one solid color
@@ -53,6 +71,61 @@ void colorCornersRed()
 void colorChargeUp(LED myLED) 
 {
   myLED.trueColor = color(millis()/50,millis()/50,millis()/50);
+}
+
+void colorWiring()
+{
+  for(int i = 0; i < LEDs.length; i++)
+  {
+    if(i < 48)
+    {
+      LEDs[i].trueColor = color(0, 255, 0);
+    }
+    else if(i <96)
+    {
+      LEDs[i].trueColor = color(0, 0, 255);
+    }
+    else if(i < 121)
+    {
+      LEDs[i].trueColor = color(255, 255, 0);
+    }
+    else if(i < 169)
+    {
+      LEDs[i].trueColor = color(148, 0, 211);
+    }
+    else if(i < 194)
+    {
+      LEDs[i].trueColor = color(255, 105, 180);
+    }
+    else if(i < 230)
+    {
+      LEDs[i].trueColor = color(255, 140, 0);
+    }
+    else if(i < 278)
+    {
+      LEDs[i].trueColor = color(255, 255, 0);
+    }
+    else if(i < 303)
+    {
+      LEDs[i].trueColor = color(148, 0, 211);
+    }
+    else if(i < 339)
+    {
+      LEDs[i].trueColor = color(147, 112, 219);
+    }
+    else if(i < 387)
+    {
+      LEDs[i].trueColor = color(255, 0, 0);
+    }
+    else if(i < 435)
+    {
+      LEDs[i].trueColor = color(255, 140, 0);
+    }
+    else if(i < 460)
+    {
+      LEDs[i].trueColor = color(0, 255, 0);
+    }
+  }
 }
 
 /*

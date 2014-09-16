@@ -12,8 +12,13 @@ ArrayList<lightPoint> lightPoints;
 boolean mapOn;
 boolean randomOn;
 boolean debugOn = false;
+boolean outsideOn = false;
+boolean fullOn = false;
 
-int animationCheck = 1;
+int animationCheck = 0;
+int colorCheck = 0;
+
+int savedTime;
 
 Minim minim;
 AudioPlayer player;
@@ -22,8 +27,6 @@ WaveformRenderer waveform;
 BeatListener beatListener;
 FFT fft;
 
-ArrayList<lightPoint> movingLights;
-ArrayList<lightPoint> staticLights;
 ArrayList<lightBlock> lightBlocks;
 
 LED[] LEDs;
@@ -32,9 +35,6 @@ float minDistance;
 int closestText;
 float closestTextX;
 float closestTextY;
-
-int savedTime = 0;
-int vertexIndex = 0;
 
 PVector[] vertices;
 
@@ -66,14 +66,12 @@ void setup()
   
   minim = new Minim(this);
   
-  player = minim.loadFile("LVTrack01.mp3", 512);
+  player = minim.loadFile("Blondish01.mp3", 512);
   player.addListener(waveform);
   
   LEDs = new LED[460]; // Initialize Full Tesseract Array (460 = number of LEDs)
   
   lightPoints = new ArrayList<lightPoint>();
-  movingLights = new ArrayList<lightPoint>();
-  staticLights = new ArrayList<lightPoint>();
   lightBlocks = new ArrayList<lightBlock>();
   
   opc = new OPC(this, "127.0.0.1", 7890);
@@ -97,7 +95,7 @@ void setup()
   
   player.play();
   player.loop();
-  
+  savedTime = millis();
 }
 
 void draw()
@@ -107,49 +105,51 @@ void draw()
   beat.detect( player.mix );
   fft.forward( player.mix );
   
-  //colorRandomBlackAndWhite();
-  //equalizer3DRun();
-  //quadBoxRotRun();
-  //quadBoxRotRun();
-  //octoBoxRun();
-  
   switch(animationCheck)
   {
-    case 0:
+    case 1:
       fillThenDance();  
       break;
-    case 1:
+    case 2:
       PopThenDrop();
       break;
-    case 2:
+    case 3:
       popOnBeat();
       break;
-    case 3: 
-      equalizer3DRun();
+    case 4: 
+      evenEqualizerRun();
       break;
-    case 4:
+    case 5:
       quadBoxRotRun();
       break;
+    case 6:
+      rain(2);
+      break;
+    //case 7:
+      //wheelRun();
+      //break;
     default:
       break;
-      
   }
   
   for(int i = 0; i < LEDs.length; i++)
   {
     LED myLED = LEDs[i];
-    //shadeFullBrightness(myLED);
-    shadeBlack(myLED);
+    
+    if(fullOn) { 
+      shadeFullBrightness(myLED);
+    } 
+    else {
+      shadeBlack(myLED);
+    }
+    
+    
     shadeLightPoints(myLED, lightPoints);
-    //colorCornersRed();
-    //shadeFullBrightness(myLED);
-    //shadeWithinBlock(myLED, lightBlocks.get(0));
     
     for(int j = 0; j < lightBlocks.size(); j++)
     {
       shadeWithinBlock(myLED, lightBlocks.get(j));
     }
-    
   }
   
   //Draw 3D version all the time
@@ -225,26 +225,52 @@ void keyPressed()
       break;
     case '1':
       clearLights();
-      animationCheck = 0;
+      animationCheck = 1;
       break;
     case '2':
       clearLights();
-      animationCheck = 1;
+      animationCheck = 2;
       break;
     case '3':
       clearLights();
-      animationCheck = 2;
+      animationCheck = 3;
       break;
     case '4':
       clearLights();
-      equalizer3DSetup();
-      animationCheck = 3;
+      evenEqualizerSetup();
+      animationCheck = 4;
       break;
     case '5':
       clearLights();
       quadBoxRotSetup();
-      animationCheck = 4;
+      animationCheck = 5;
       break;
+    case '6':
+      clearLights();
+      animationCheck = 6;
+      break;
+    case '7':
+      clearLights();
+      wheelSetup(5);
+      animationCheck = 7;
+      break;
+    case 'q':
+      colorRainbow();
+      break;
+    case 'w':
+      colorRandomBlackAndWhite();
+      break;
+    case 'e':
+      colorRandom();
+      break;
+    case 'r':
+      colorSolid(255, 255, 255);
+      break;
+    case 't':
+      colorWiring();
+      break;  
+    case 'l':
+      fullOn = !fullOn;
     default:
       break;
   }
@@ -257,11 +283,10 @@ void setupLEDs()
     opc.led(i, (int)LEDs[i].mapLocation.x, (int)LEDs[i].mapLocation.y);
   }
 }
+
 void clearLights()
 {
   lightPoints.clear();
-  movingLights.clear();
-  staticLights.clear();
   lightBlocks.clear();
 }
 

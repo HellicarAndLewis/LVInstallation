@@ -4,7 +4,7 @@ class lightBlock
   PVector velocity = new PVector(0, 0, 0);
   PVector acceleration;
   
-  color blockColor;
+  color blockColor = color(255, 255, 255);
   
   PVector dimensions;
   Integrator w, h, d;
@@ -33,8 +33,7 @@ class lightBlock
     noStroke();
     translate(x, y, z);
     translate(location.x, location.y, location.z);
-    stroke(255);
-    //fill(blockColor, 100);
+    stroke(blockColor);
     box(w.value, h.value, d.value);
     popMatrix();
   }
@@ -94,7 +93,7 @@ class lightBlock
     d.update();
   }
   
-  void checkEdges()
+  void checkEdgesWeird()
   {
     float x = location.x;
     float y = location.y;

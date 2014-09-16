@@ -257,10 +257,12 @@ class lightPoint
     if(intensity.value >= b)
     {
       intensity.target(a);
+      intensity.update();
     }
     else if(intensity.value <= a)
     {
       intensity.target(b);
+      intensity.update();
     }
   }
 }

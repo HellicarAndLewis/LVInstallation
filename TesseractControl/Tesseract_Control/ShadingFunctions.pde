@@ -10,6 +10,7 @@ void shadeLightPoints(LED myLED, ArrayList<lightPoint> newlightPoints)
   float red = 0;
   float green = 0;
   float blue = 0;
+  
   for(int j = 0; j < newlightPoints.size(); j++)
   {
     lightPoint lightSource = newlightPoints.get(j);
@@ -35,7 +36,17 @@ void shadeWithinBlock(LED myLED, lightBlock newLightBlock)
 {
   if( newLightBlock.isThisInside(myLED.realLocation) )
   {
-    shadeFullBrightness(myLED);
+    float sourceRed = red(newLightBlock.blockColor);
+    float sourceGreen = green(newLightBlock.blockColor);
+    float sourceBlue = blue(newLightBlock.blockColor);
+    
+    float red = red( myLED.trueColor );
+    red = (red > sourceRed) ? sourceRed : red;
+    float green = green( myLED.trueColor );
+    green = (green > sourceGreen) ? sourceGreen : green;
+    float blue = blue( myLED.trueColor );
+    blue = (blue > sourceBlue) ? sourceBlue : blue;
+    myLED.shade = color(red, green, blue);
   }
 }
 
