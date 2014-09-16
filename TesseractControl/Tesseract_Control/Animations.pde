@@ -305,16 +305,16 @@ void rain(float speed)
     switch (sideCheck)
     {
       case 0:
-        randomLEDIndex = int(random(411, 434));
+        randomLEDIndex = int(random(48, 71));
         break;
       case 1:
-        randomLEDIndex = int(random(72, 96));
+        randomLEDIndex = int(random(351, 374));
         break;
       case 2:
-        randomLEDIndex = int(random(230, 254));
+        randomLEDIndex = int(random(302, 325));
         break;
       case 3:
-        randomLEDIndex = int(random(387, 411));
+        randomLEDIndex = int(random(72, 95));
         break;
     }
     
@@ -327,11 +327,11 @@ void rain(float speed)
     
     if(sideCheck < 2)
     {
-      newLight.velocity = (randomDir < 0.5) ? new PVector(0, 0, speed) : new PVector(0, 0, -speed);
+      newLight.velocity = (randomDir < 0.5) ? new PVector(speed, 0, 0) : new PVector(-speed, 0, 0);
     }
     else
     {
-      newLight.velocity = (randomDir < 0.5) ? new PVector(speed, 0, 0) : new PVector(-speed, 0, 0);
+      newLight.velocity = (randomDir < 0.5) ? new PVector(0, 0, speed) : new PVector(0, 0, -speed);
     }
   }
   

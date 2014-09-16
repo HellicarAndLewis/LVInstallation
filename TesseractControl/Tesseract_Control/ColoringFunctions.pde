@@ -128,6 +128,25 @@ void colorWiring()
   }
 }
 
+void colorRegions()
+{
+  for(int i = 0; i < LEDs.length; i++)
+  {
+    if(LEDs[i].outside)
+    {
+      LEDs[i].trueColor = color(255, 0, 0);
+    }
+    else if(LEDs[i].inside)
+    {
+      LEDs[i].trueColor = color(0, 255, 0);
+    }
+    else if(LEDs[i].connections)
+    {
+      LEDs[i].trueColor = color(0, 0, 255);
+    }
+  }
+}
+
 /*
 void shadeLightPoints(LED myLED, ArrayList<lightPoint> newlightPoints)
 {

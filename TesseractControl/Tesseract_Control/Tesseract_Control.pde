@@ -123,11 +123,8 @@ void draw()
       quadBoxRotRun();
       break;
     case 6:
-      rain(2);
+      rain(1);
       break;
-    //case 7:
-      //wheelRun();
-      //break;
     default:
       break;
   }
@@ -136,13 +133,14 @@ void draw()
   {
     LED myLED = LEDs[i];
     
-    if(fullOn) { 
+    if(fullOn) 
+    { 
       shadeFullBrightness(myLED);
-    } 
-    else {
+    }
+    else
+    {
       shadeBlack(myLED);
     }
-    
     
     shadeLightPoints(myLED, lightPoints);
     
@@ -151,7 +149,6 @@ void draw()
       shadeWithinBlock(myLED, lightBlocks.get(j));
     }
   }
-  
   //Draw 3D version all the time
   for (int i = 0; i < LEDs.length; i++)
   {
@@ -272,6 +269,7 @@ void keyPressed()
     case 'l':
       fullOn = !fullOn;
     default:
+      colorRegions();
       break;
   }
 }
