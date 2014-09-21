@@ -52,7 +52,8 @@ class lightPoint
     noStroke();
     translate(x, y, z);
     translate(location.x, location.y, location.z);
-    fill(lightColor, 100);
+    noFill();
+    stroke(lightColor);
     sphere(intensity.value);
     popMatrix();
   }
@@ -264,6 +265,11 @@ class lightPoint
       intensity.target(b);
       intensity.update();
     }
+  }
+  
+  void setColor(color newColor)
+  {
+    lightColor = newColor;
   }
 }
 

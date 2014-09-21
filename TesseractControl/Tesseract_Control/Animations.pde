@@ -61,14 +61,14 @@ void PopThenDrop()
   {
     float sideCheck = random(1);
     int newIndex = 0;
-    if(sideCheck < 0.125) newIndex = 339;
-    else if(sideCheck < 0.25) newIndex = 71;
-    else if(sideCheck < 0.375) newIndex = 443;
-    else if(sideCheck < 0.5) newIndex = 254;
-    else if(sideCheck < 0.625) newIndex = 286;
-    else if(sideCheck < 0.75) newIndex = 112;
+    if(sideCheck < 0.125) newIndex = 375;
+    else if(sideCheck < 0.25) newIndex = 301;
+    else if(sideCheck < 0.375) newIndex = 325;
+    else if(sideCheck < 0.5) newIndex = 168;
+    else if(sideCheck < 0.625) newIndex = 342;
+    else if(sideCheck < 0.75) newIndex = 407;
     else if(sideCheck < 0.875) newIndex = 185;
-    else if(sideCheck < 1.0) newIndex = 145;
+    else if(sideCheck < 1.0) newIndex = 104;
     lightPoint newLight = new lightPoint(LEDs[newIndex], color(255, 255, 255), 30);
     newLight.acceleration = new PVector(0, random(0, 5), 0);
     newLight.intensity.target(50);
@@ -321,6 +321,7 @@ void rain(float speed)
     lightPoint newLight = new lightPoint(LEDs[randomLEDIndex], color(255, 255, 255), 100);
     newLight.intensity.attraction = 0.1;
     newLight.intensity.target(20);
+
     float randomDir = random(1);
     lightPoints.add(newLight);
     lightPoints.add(newLight);
@@ -469,52 +470,6 @@ void rainOutside()
     myLight.findNearestLED();
   }
 }
-
-void wheelSetup(float speed)
-{
-  for(int i = 0; i < 5; i++)
-  {
-    float size = map(i, 0, 5, 30, 10);
-    float y = map(i, 0, 5, -100, 100);
-    lightPoint light = new lightPoint(100, y, 100, color(255, 255, 255), size);
-    light.velocity = new PVector(0, speed, 0);
-    lightPoints.add(light);
-  }
-}
-
-void wheelRun()
-{
-  if(beat.isKick())
-  {
-    for(int i = 0; i < lightPoints.size(); i++)
-    {
-      lightPoint myLight = lightPoints.get(i);
-      myLight.velocity.x *= 5;
-      myLight.velocity.y *= 5;
-      myLight.velocity.z *= 5;
-    }
-  }
-  for(int i = 0; i < lightPoints.size(); i++)
-  {
-    lightPoint myLight = lightPoints.get(i);
-    myLight.move();
-    if(myLight.velocity.y != 0)
-    {
-      if(myLight.location.y > 100 || myLight.location.y < -100)
-      {
-        myLight.velocity = new PVector(0, 0, -myLight.velocity.y);
-      }
-    }
-    else if(myLight.velocity.z != 0)
-    {
-      if(myLight.location.z > 100 || myLight.location.z < -100)
-      {
-        myLight.velocity = new PVector(0, myLight.velocity.z, 0);
-      }
-    }
-  }
-}
-
   /*
   float maxLimit = MIN_FLOAT;
   

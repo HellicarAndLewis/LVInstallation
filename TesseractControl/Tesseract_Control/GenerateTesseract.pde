@@ -38,7 +38,7 @@ void generateTesseract()
   
   //Begin generating Tesseract in order of wiring
   
-    //-----------------------ENTRY H-----------------------
+  //-----------------------ENTRY H-----------------------
   
   //H to D
   for(int i = 0; i < lightsPerStripOutside; i++)
