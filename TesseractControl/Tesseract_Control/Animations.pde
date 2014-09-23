@@ -43,6 +43,13 @@ void fillThenDance()
   {
     lightPoints.remove(0);
     lightPoints.remove(0);
+    if(beat.isKick())
+    {
+      for(int i = 0; i < lightPoints.size(); i++)
+      {
+        lightPoints.get(i).velocity.mult(-1);
+      }
+    }
   }
   
   for(int i = 0; i < lightPoints.size(); i++)
@@ -296,7 +303,7 @@ void insideOutside()
   } 
 }
 
-void rain(float speed)
+void rain(float speed, int danceNum)
 {
   if(beat.isKick() || beat.isSnare() || beat.isHat())
   {
@@ -324,7 +331,17 @@ void rain(float speed)
 
     float randomDir = random(1);
     lightPoints.add(newLight);
-    lightPoints.add(newLight);
+    
+    if(danceNum != 0)
+    {
+      if(lightPoints.size() > danceNum)
+      {
+        for(int i = 0; i < lightPoints.size(); i++)
+        {
+          lightPoints.get(i).velocity.mult(-1);
+        }
+      }
+    }
     
     if(sideCheck < 2)
     {
@@ -342,6 +359,7 @@ void rain(float speed)
     {
       lightPoints.remove(i);
     }
+    
     lightPoints.get(i).checkOuterEdges();
   }
   

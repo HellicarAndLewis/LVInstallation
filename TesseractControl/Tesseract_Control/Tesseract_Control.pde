@@ -10,6 +10,8 @@ PFont font;
 OPC opc;
 ArrayList<lightPoint> lightPoints;
 lightingScheme summer;
+lightingScheme lava;
+
 
 boolean mapOn;
 //boolean randomOn;
@@ -20,6 +22,8 @@ boolean solidOn = false;
 
 int animationCheck = 0;
 int colorCheck = 0;
+int dynamicColoringCheck = 0;
+int lightingSchemeCheck = 0;
 
 int savedTime;
 
@@ -89,6 +93,16 @@ void setup()
   summerColors[2] = color(0, 128, 128);
   
   summer = new lightingScheme(summerColors);
+  
+  color[] lavaColors;
+  lavaColors = new color[5];
+  lavaColors[0] = color(255, 0, 0);
+  lavaColors[1] = color(255, 140, 0);
+  lavaColors[2] = color(255, 165, 0);
+  lavaColors[3] = color(255, 255, 0);
+  lavaColors[4] = color(255, 69, 0);
+  
+  lava = new lightingScheme(lavaColors);
 
   opc = new OPC(this, "127.0.0.1", 7890);
 
@@ -143,13 +157,30 @@ void draw()
     quadBoxRotRun();
     break;
   case 5:
-    rain(2);
+    rain(3, 30);
     break;
   default:
     break;
   }
   
-  summer.colorLights(lightPoints);
+  switch(dynamicColoringCheck)
+  {
+    
+  }
+  
+  switch(lightingSchemeCheck)
+  {
+    case 0:
+      break;
+    case 1:
+      summer.colorLights(lightPoints);
+      break;
+    case 2:
+      lava.colorLights(lightPoints);
+      break;
+    default:
+      break;
+  }
   
   for (int i = 0; i < LEDs.length; i++)
   {
@@ -307,6 +338,15 @@ void keyPressed()
     break;
   case 's':
     solidOn = !solidOn;
+  case 'z':
+    lightingSchemeCheck = 0;
+    break;
+  case 'x':
+    lightingSchemeCheck = 1;
+    break;
+  case 'c':
+    lightingSchemeCheck = 2;
+    break;
   default:
     break;
   }
