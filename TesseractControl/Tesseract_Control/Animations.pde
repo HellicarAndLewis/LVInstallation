@@ -4,14 +4,21 @@ void popOnBeat()
   {
     lightPoint newLight = new lightPoint(LEDs[int(random(460))], color(255, 255, 255), 20);
     newLight.intensity.attraction = 0.1;
-    newLight.intensity.target(300);
+    newLight.intensity.target(200);
+    newLight.intensity.attraction = 1.0;
     lightPoints.add(newLight);
   }
    
   if(lightPoints.size() > 1)
   {
-    lightPoints.remove(0);
-    lightPoints.remove(0);
+    for(int i = 0; i < lightPoints.size() - 1; i++)
+    {
+      lightPoints.get(i).intensity.target(0);
+      if(lightPoints.get(i).intensity.value < 10)
+      {
+        lightPoints.remove(i);
+      }
+    }
   }
   
   for(int i = 0; i < lightPoints.size(); i++)
@@ -39,7 +46,7 @@ void fillThenDance()
     }
   }
    
-  if(lightPoints.size() > 30)
+  if(lightPoints.size() > 10)
   {
     lightPoints.remove(0);
     lightPoints.remove(0);

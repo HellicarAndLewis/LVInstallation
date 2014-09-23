@@ -11,6 +11,7 @@ OPC opc;
 ArrayList<lightPoint> lightPoints;
 lightingScheme summer;
 lightingScheme lava;
+lightingScheme snow;
 
 
 boolean mapOn;
@@ -77,7 +78,7 @@ void setup()
   
   lineIn = minim.getLineIn();
 
-  player = minim.loadFile("LVTrack02.mp3", 512);
+  player = minim.loadFile("LVTrack01.mp3", 512);
   player.addListener(waveform);
   lineIn.addListener(waveform);
 
@@ -88,7 +89,7 @@ void setup()
   
   color[] summerColors;
   summerColors = new color[3];
-  summerColors[0] = color(255, 255, 254);
+  summerColors[0] = color(254, 254, 254);
   summerColors[1] = color(255, 255, 0);
   summerColors[2] = color(0, 128, 128);
   
@@ -104,6 +105,15 @@ void setup()
   
   lava = new lightingScheme(lavaColors);
 
+  color[] snowColors;
+  snowColors = new color[3];
+  snowColors[0] = color(254, 254, 254);
+  snowColors[1] = color(224, 255, 255);
+  snowColors[2] = color(135, 206, 250);
+  
+  snow = new lightingScheme(snowColors);
+
+  
   opc = new OPC(this, "127.0.0.1", 7890);
 
   //generate the Tesseract
@@ -113,19 +123,19 @@ void setup()
   colorRainbow();
 
   //start up minim - for playing music
-  //beat = new BeatDetect(lineIn.bufferSize(), lineIn.sampleRate());
-  //fft = new FFT( lineIn.bufferSize(), lineIn.sampleRate() );
+  beat = new BeatDetect(lineIn.bufferSize(), lineIn.sampleRate());
+  fft = new FFT( lineIn.bufferSize(), lineIn.sampleRate() );
   
-  beat = new BeatDetect(player.bufferSize(), player.sampleRate());
-  fft = new FFT( player.bufferSize(), player.sampleRate() );
+  //beat = new BeatDetect(player.bufferSize(), player.sampleRate());
+  //fft = new FFT( player.bufferSize(), player.sampleRate() );
   
-  beat.setSensitivity(500);
+  beat.setSensitivity(200);
   fft.linAverages( 30 );
 
   setupLEDs();
 
-  player.play();
-  player.loop();
+  //player.play();
+  //player.loop();
   savedTime = millis();
 }
 
@@ -133,11 +143,11 @@ void draw()
 {
   background(0);
   
-  //beat.detect( lineIn.mix );
-  //fft.forward( lineIn.mix );
+  beat.detect( lineIn.mix );
+  fft.forward( lineIn.mix );
   
-  beat.detect( player.mix );
-  fft.forward( player.mix );
+  //beat.detect( player.mix );
+  //fft.forward( player.mix );
 
   switch(animationCheck)
   {
@@ -157,7 +167,7 @@ void draw()
     quadBoxRotRun();
     break;
   case 5:
-    rain(3, 30);
+    rain(6, 0);
     break;
   default:
     break;
@@ -165,7 +175,14 @@ void draw()
   
   switch(dynamicColoringCheck)
   {
-    
+    case 0:
+      break;
+    case 1:
+      colorRandomBlackAndWhite();
+      break;
+    case 2:
+      colorRandom();
+      break;
   }
   
   switch(lightingSchemeCheck)
@@ -177,6 +194,9 @@ void draw()
       break;
     case 2:
       lava.colorLights(lightPoints);
+      break;
+    case 3:
+      snow.colorLights(lightPoints);
       break;
     default:
       break;
@@ -310,11 +330,6 @@ void keyPressed()
     clearLights();
     animationCheck = 5;
     break;
-  //case '7':
-    //clearLights();
-    //rainDance(1);
-    //animationCheck = 7;
-    //break;
   case 'q':
     colorRainbow();
     break;
@@ -333,6 +348,15 @@ void keyPressed()
   case 'y':
     colorRegions();
     break;
+  case 'u':
+    dynamicColoringCheck = 0;
+    break;
+  case 'i':
+    dynamicColoringCheck = 1;
+    break;
+  case 'o':
+    dynamicColoringCheck = 2;
+    break;
   case 'l':
     fullOn = !fullOn;
     break;
@@ -346,6 +370,9 @@ void keyPressed()
     break;
   case 'c':
     lightingSchemeCheck = 2;
+    break;
+  case 'v':
+    lightingSchemeCheck = 3;
     break;
   default:
     break;
