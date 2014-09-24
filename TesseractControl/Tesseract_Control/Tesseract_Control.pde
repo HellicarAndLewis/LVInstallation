@@ -321,15 +321,18 @@ void keyPressed()
     evenEqualizerSetup();
     animationCheck = 4;
     break;
+  case '5':
+    clearLights();
+    animationCheck = 5;
+    break;
   case '6':
     clearLights();
     quadBoxRotSetup();
     animationCheck = 6;
     break;
-  case '5':
+  case '7':
     clearLights();
-    animationCheck = 5;
-    break;
+    whirlwindSetup();
   case 'q':
     colorRainbow();
     break;

@@ -495,6 +495,27 @@ void rainOutside()
     myLight.findNearestLED();
   }
 }
+
+void whirlwindSetup()
+{
+    lightBlock block1 = new lightBlock(0, 0, 100, 210, 210, 10);
+    lightBlock block2 = new lightBlock(0, 0, -100, 210, 210, 10);
+    lightBlock block3 = new lightBlock(100, 0, 0, 10, 210, 210);
+    lightBlock block4 = new lightBlock(-100, 0, 0, 10, 210, 210);
+    lightBlocks.add(block1);
+    lightBlocks.add(block2);
+    lightBlocks.add(block3);
+    lightBlocks.add(block4);
+    
+    lightBlock block5 = new lightBlock(0, 0, 50, 110, 110, 10);
+    lightBlock block6 = new lightBlock(0, 0, -50, 110, 110, 10);
+    lightBlock block7 = new lightBlock(50, 0, 0, 10, 110, 110);
+    lightBlock block8 = new lightBlock(-50, 0, 0, 10, 110, 110);
+    lightBlocks.add(block5);
+    lightBlocks.add(block6);
+    lightBlocks.add(block7);
+    lightBlocks.add(block8);
+}
   /*
   float maxLimit = MIN_FLOAT;
   
