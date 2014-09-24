@@ -147,6 +147,51 @@ void colorRegions()
   }
 }
 
+void colorGradient(color color1, color color2, float barrier, char dimension)
+{
+  if (dimension != 'x' && dimension != 'y' && dimension != 'z')
+  {
+    println("invalid dimension:" + dimension);
+  }
+  else
+  {
+    for(int i = 0; i < LEDs.length; i++)
+    {
+      LED myLED = LEDs[i];
+      if(dimension == 'x')
+      {
+        float red = map(myLED.realLocation.x, -100 + barrier , 100 - barrier, 0, red(color1));
+        float green = map(myLED.realLocation.x, -100, 100 - barrier, 0, green(color1));
+        float blue = map(myLED.realLocation.x, -100, 100 - barrier, 0, blue(color1));
+        red += map(myLED.realLocation.x, 100 - barrier, -100, 0, red(color2));
+        green += map(myLED.realLocation.x, 100 - barrier, -100, 0, green(color2));
+        blue += map(myLED.realLocation.x, 100 - barrier, -100, 0, blue(color2));
+        myLED.trueColor = color(red, green, blue);
+      }
+      else if(dimension == 'y')
+      {
+        float red = map(myLED.realLocation.y, 0 - barrier, 100 , 0, red(color1));
+        float green = map(myLED.realLocation.y, 0 - barrier, 100 , 0, green(color1));
+        float blue = map(myLED.realLocation.y, 0 - barrier, 100 , 0, blue(color1));
+        //red += map(myLED.realLocation.y, 0 - barrier, -100, 0, red(color2));
+        //green += map(myLED.realLocation.y, 0 - barrier, -100, 0, green(color2));
+        //blue += map(myLED.realLocation.y, 0 - barrier, -100, 0, blue(color2));
+        myLED.trueColor = color(red, green, blue);
+      }
+      else if(dimension == 'z')
+      {
+        float red = map(myLED.realLocation.z, -100, 100 - barrier, 0, red(color1));
+        float green = map(myLED.realLocation.z, -100, 100 - barrier, 0, green(color1));
+        float blue = map(myLED.realLocation.z, -100, 100 - barrier, 0, blue(color1));
+        red += map(myLED.realLocation.z, 100 - barrier, -100, 0, red(color2));
+        green += map(myLED.realLocation.z, 100 - barrier, -100, 0, green(color2));
+        blue += map(myLED.realLocation.z, 100 - barrier, -100, 0, blue(color2));
+        myLED.trueColor = color(red, green, blue);
+      }
+    }
+  }
+}
+
 /*
 void shadeLightPoints(LED myLED, ArrayList<lightPoint> newlightPoints)
 {

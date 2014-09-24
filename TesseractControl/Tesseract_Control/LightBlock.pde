@@ -4,7 +4,7 @@ class lightBlock
   PVector velocity = new PVector(0, 0, 0);
   PVector acceleration;
   
-  color blockColor = color(255, 255, 255);
+  color blockColor;
   
   PVector dimensions;
   Integrator w, h, d;
@@ -16,6 +16,7 @@ class lightBlock
     w = new Integrator(dimensions.x);
     h = new Integrator(dimensions.y);
     d = new Integrator(dimensions.z);
+    blockColor = color(255, 255, 255);
   }
   
   public lightBlock(float x, float y, float z, float newW, float newH, float newD)
@@ -25,6 +26,7 @@ class lightBlock
     w = new Integrator(dimensions.x);
     h = new Integrator(dimensions.y);
     d = new Integrator(dimensions.z);
+    blockColor = color(255, 255, 255);
   }
   
   void display(float x, float y, float z)
@@ -71,26 +73,9 @@ class lightBlock
     location.add(velocity);
   }
   
-  void changeWidth(float newW)
+  void setColor(color newColor)
   {
-    w.target(newW);
-  }
-  
-  void changeHeight(float newH)
-  {
-    h.target(newH);
-  }
-
-  void changeDepth(float newD)
-  {
-    d.target(newD);
-  }
-  
-  void updateSize()
-  {
-    w.update();
-    h.update();
-    d.update();
+    blockColor = newColor;
   }
   
   void checkEdgesWeird()

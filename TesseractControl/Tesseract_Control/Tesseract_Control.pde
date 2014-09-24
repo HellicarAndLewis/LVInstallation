@@ -13,6 +13,9 @@ lightingScheme summer;
 lightingScheme lava;
 lightingScheme snow;
 
+float minLight = 0;
+
+Integrator barrier = new Integrator(0);
 
 boolean mapOn;
 //boolean randomOn;
@@ -25,6 +28,7 @@ int animationCheck = 0;
 int colorCheck = 0;
 int dynamicColoringCheck = 0;
 int lightingSchemeCheck = 0;
+int whirlwindStep = 1000;
 
 int savedTime;
 
@@ -90,8 +94,8 @@ void setup()
   color[] summerColors;
   summerColors = new color[3];
   summerColors[0] = color(254, 254, 254);
-  summerColors[1] = color(255, 255, 0);
-  summerColors[2] = color(0, 128, 128);
+  summerColors[1] = color(254, 254, 254);
+  summerColors[2] = color(0, 0, 127);
   
   summer = new lightingScheme(summerColors);
   
@@ -120,22 +124,22 @@ void setup()
   generateTesseract();
   setCornerConnections();
 
-  colorRainbow();
+  colorSolid(255, 255, 255);
 
   //start up minim - for playing music
-  beat = new BeatDetect(lineIn.bufferSize(), lineIn.sampleRate());
-  fft = new FFT( lineIn.bufferSize(), lineIn.sampleRate() );
+  //beat = new BeatDetect(lineIn.bufferSize(), lineIn.sampleRate());
+  //fft = new FFT( lineIn.bufferSize(), lineIn.sampleRate() );
   
-  //beat = new BeatDetect(player.bufferSize(), player.sampleRate());
-  //fft = new FFT( player.bufferSize(), player.sampleRate() );
+  beat = new BeatDetect(player.bufferSize(), player.sampleRate());
+  fft = new FFT( player.bufferSize(), player.sampleRate() );
   
   beat.setSensitivity(200);
   fft.linAverages( 30 );
 
   setupLEDs();
 
-  //player.play();
-  //player.loop();
+  player.play();
+  player.loop();
   savedTime = millis();
 }
 
@@ -143,11 +147,11 @@ void draw()
 {
   background(0);
   
-  beat.detect( lineIn.mix );
-  fft.forward( lineIn.mix );
+  //beat.detect( lineIn.mix );
+  //fft.forward( lineIn.mix );
   
-  //beat.detect( player.mix );
-  //fft.forward( player.mix );
+  beat.detect( player.mix );
+  fft.forward( player.mix );
 
   switch(animationCheck)
   {
@@ -163,11 +167,20 @@ void draw()
   case 4: 
     evenEqualizerRun();
     break;
+  case 5:
+    rain(6, 0);
+    break;
   case 6:
     quadBoxRotRun();
     break;
-  case 5:
-    rain(6, 0);
+  case 7:
+    fillRun();
+    break;
+  case 8:
+    novaRun(minLight);
+    break;
+  case 9:
+    whirlwindRun();
     break;
   default:
     break;
@@ -180,8 +193,7 @@ void draw()
     case 1:
       colorRandomBlackAndWhite();
       break;
-    case 2:
-      colorRandom();
+    default:
       break;
   }
   
@@ -217,20 +229,20 @@ void draw()
     
     if(solidOn)
     {
-      for (int j = 0; j < lightPoints.size (); j++)
+      for (int j = 0; j < lightPoints.size(); j++)
       {
         shadeWithinPoint(myLED, lightPoints.get(j));
+      }
+      for(int j = 0; j < lightBlocks.size(); j++)
+      {
+        shadeWithinBlock(myLED, lightBlocks.get(j));
       }
     }
     else 
     {
       shadeLightPoints(myLED, lightPoints);
-    }
-    //shadeLightPointsAmalg(myLED, lightPoints);
-    
-    for (int j = 0; j < lightBlocks.size (); j++)
-    {
-      shadeWithinBlock(myLED, lightBlocks.get(j));
+      
+      shadeLightBlocks(myLED, lightBlocks, 'y');
     }
   }
   //Draw 3D version all the time
@@ -251,6 +263,7 @@ void draw()
   
   minDistance = MAX_FLOAT;
   PVector mouseLocation = new PVector(mouseX, mouseY);
+  
   for (int i = 0; i < LEDs.length; i++)
   {
     float dist = dist(mouseLocation.x, mouseLocation.y, LEDs[i].mapLocation.x, LEDs[i].mapLocation.y);
@@ -332,7 +345,20 @@ void keyPressed()
     break;
   case '7':
     clearLights();
+    fillSetup(color(255, 127, 127), color(100, 100, 100));
+    animationCheck = 7;
+    break;
+  case '8':
+    clearLights();
+    novaSetup();
+    minLight = 0;
+    animationCheck = 8;
+    break;
+  case '9':
+    clearLights();
     whirlwindSetup();
+    animationCheck = 9;
+    break;
   case 'q':
     colorRainbow();
     break;
@@ -340,25 +366,21 @@ void keyPressed()
     colorRandomBlackAndWhite();
     break;
   case 'e':
-    colorRandom();
+    colorGradient(color(255, 0, 0), color(0, 255, 0), 0, 'x');
     break;
   case 'r':
     colorSolid(255, 255, 255);
     break;
   case 't':
-    colorWiring();
-    break;
+    colorSolid(255, 0, 0);
   case 'y':
-    colorRegions();
+    colorSolid(0, 255, 0);
     break;
   case 'u':
-    dynamicColoringCheck = 0;
+    colorSolid(0, 0, 255);
     break;
-  case 'i':
-    dynamicColoringCheck = 1;
-    break;
-  case 'o':
-    dynamicColoringCheck = 2;
+  case 'p':
+    dynamicColoringCheck = (dynamicColoringCheck == 0) ? 1 : 0;
     break;
   case 'l':
     fullOn = !fullOn;
@@ -394,5 +416,10 @@ void clearLights()
 {
   lightPoints.clear();
   lightBlocks.clear();
+}
+
+void clearAnimations()
+{
+  animationCheck = 0;
 }
 

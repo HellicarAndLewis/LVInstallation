@@ -36,7 +36,7 @@ void fillThenDance()
   if(beat.isKick())
   {
     lightPoint newLight = new lightPoint(LEDs[int(random(460))], color(255, 255, 255), 70);
-    newLight.velocity = new PVector(random(0, 5), random(0, 5), random(0, 5));
+    newLight.velocity = new PVector(random(5, 10), random(5, 10), random(5, 10));
     lightPoints.add(newLight);
     lightPoints.add(newLight);
     for(int i = 0; i < lightPoints.size(); i++)
@@ -498,24 +498,104 @@ void rainOutside()
 
 void whirlwindSetup()
 {
-    lightBlock block1 = new lightBlock(0, 0, 100, 210, 210, 10);
-    lightBlock block2 = new lightBlock(0, 0, -100, 210, 210, 10);
-    lightBlock block3 = new lightBlock(100, 0, 0, 10, 210, 210);
-    lightBlock block4 = new lightBlock(-100, 0, 0, 10, 210, 210);
-    lightBlocks.add(block1);
-    lightBlocks.add(block2);
-    lightBlocks.add(block3);
-    lightBlocks.add(block4);
-    
-    lightBlock block5 = new lightBlock(0, 0, 50, 110, 110, 10);
-    lightBlock block6 = new lightBlock(0, 0, -50, 110, 110, 10);
-    lightBlock block7 = new lightBlock(50, 0, 0, 10, 110, 110);
-    lightBlock block8 = new lightBlock(-50, 0, 0, 10, 110, 110);
-    lightBlocks.add(block5);
-    lightBlocks.add(block6);
-    lightBlocks.add(block7);
-    lightBlocks.add(block8);
+  lightBlock block1 = new lightBlock(0, 0, 100, 210, 0, 10);
+  lightBlock block2 = new lightBlock(100, 0, 0, 10, 0, 210);
+  lightBlock block3 = new lightBlock(0, 0, -100, 210, 0, 10);
+  lightBlock block4 = new lightBlock(-100, 0, 0, 10, 0, 210);
+  lightBlocks.add(block1);
+  lightBlocks.add(block2);
+  lightBlocks.add(block3);
+  lightBlocks.add(block4);
+  
+  lightBlock block5 = new lightBlock(0, 0, 50, 110, 0, 10);
+  lightBlock block6 = new lightBlock(50, 0, 0, 10, 0, 110);
+  lightBlock block7 = new lightBlock(0, 0, -50, 110, 0, 10);
+  lightBlock block8 = new lightBlock(-50, 0, 0, 10, 0, 110);
+  lightBlocks.add(block5);
+  lightBlocks.add(block6);
+  lightBlocks.add(block7);
+  lightBlocks.add(block8);
 }
+
+void whirlwindRun()
+{
+  if(millis() - savedTime > whirlwindStep)
+  {
+    int litOuterBlockIndex = 1;
+    int litInnerBlockIndex = 1;
+    
+    for(int i = 0; i < 4; i++)
+    {
+      if(lightBlocks.get(i).h.value > 1)
+      {
+        lightBlocks.get(i).h.value = 1;
+        litOuterBlockIndex = i;
+      }
+    }
+    litOuterBlockIndex += 1;
+    litOuterBlockIndex %= 4;
+    lightBlocks.get(litOuterBlockIndex).h.value = 210;
+    
+    for(int i = 4; i < 8; i++)
+    {
+      if(lightBlocks.get(i).h.value > 1)
+      {
+        lightBlocks.get(i).h.value = 1;
+        litInnerBlockIndex = i;
+      }
+    }
+    litInnerBlockIndex -= 1;
+    litInnerBlockIndex %= 4;
+    litInnerBlockIndex += 4;
+    lightBlocks.get(litInnerBlockIndex).h.value = 110;
+    
+    savedTime = millis();
+    whirlwindStep *= 0.90;
+  }
+}
+
+void fillSetup(color block1Color, color block2Color)
+{
+  lightBlock block1 = new lightBlock(0, 100, 0, 210, 10, 210);
+  block1.setColor(block1Color);
+  block1.h.attraction = 0.9;
+  lightBlocks.add(block1);
+  lightBlock block2 = new lightBlock(0, -100, 0, 210, 10, 210);
+  block2.setColor(block2Color);
+  block2.h.attraction = 0.9;
+  lightBlocks.add(block2);
+}
+
+void fillRun()
+{
+  float centerFrequency = fft.getAvg(0);
+  float block1Height = map(centerFrequency, 0, 3, 0, 50);
+  block1Height = min(400, block1Height);
+  lightBlocks.get(0).h.target(block1Height);
+  lightBlocks.get(0).h.update();
+  lightBlocks.get(1).h.target(400 - block1Height);
+  lightBlocks.get(1).h.update();
+}
+
+void novaSetup()
+{
+  lightPoint centerPoint = new lightPoint(0, 0, 0, color(255), 10);
+  centerPoint.intensity.attraction  = 1.0;
+  centerPoint.intensity.damping = 0.45;
+  lightPoints.add(centerPoint);
+}
+
+void novaRun(float newMinLight)
+{
+  lightPoint lightSource = lightPoints.get(0);
+  float centerFrequency = fft.getAvg(0);
+  float newIntensity = map(centerFrequency, 10, 30, newMinLight, 300);
+  newIntensity = max(newMinLight, newIntensity);
+  lightSource.intensity.target(newIntensity);
+  lightSource.intensity.update();
+  newMinLight++;
+}
+
   /*
   float maxLimit = MIN_FLOAT;
   
