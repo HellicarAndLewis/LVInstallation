@@ -550,7 +550,12 @@ void whirlwindRun()
     lightBlocks.get(litInnerBlockIndex).h.value = 110;
     
     savedTime = millis();
+  }
+  if(beat.isKick())
+  {
     whirlwindStep *= 0.90;
+    whirlwindStep = max(1, whirlwindStep);
+    println(whirlwindStep);
   }
 }
 
@@ -596,6 +601,71 @@ void novaRun(float newMinLight)
   newMinLight++;
 }
 
+lightBlock[] climbOnSetup()
+{
+  lightBlock[] setupArray = new lightBlock[32];
+  setupArray[0] = new lightBlock(0, 100, 100, 210, 10, 10);
+  setupArray[1] = new lightBlock(100, 100, 0, 10, 10, 210);
+  setupArray[2] = new lightBlock(100, 0, 100, 10, 210, 10);
+  setupArray[3] = new lightBlock(75, 75, 75, 50, 50, 50);
+  setupArray[4] = new lightBlock(0, 50, 50, 110, 10, 10);
+  setupArray[5] = new lightBlock(50, 50, 0, 10, 10, 110);
+  setupArray[6] = new lightBlock(50, 0, 50, 10, 110, 10);
+  setupArray[7] = new lightBlock(-50, 50, 0, 10, 10, 110);
+  setupArray[8] = new lightBlock(-50, 0, 50, 10, 110, 10);
+  setupArray[9] = new lightBlock(-75, 75, 75, 50, 50, 50);
+  setupArray[10] = new lightBlock(-100, 100, 0, 10, 10, 210);
+  setupArray[11] = new lightBlock(-75, 75, -75, 50, 50, 50);
+  setupArray[12] = new lightBlock(0, 100, -100, 210, 10, 10);
+  setupArray[13] = new lightBlock(-100, 0, 100, 10, 210, 10);
+  setupArray[14] = new lightBlock(0, -50, 50, 110, 10, 10);
+  setupArray[15] = new lightBlock(100, -100, 0, 10, 10, 210);
+  setupArray[16] = new lightBlock(50, -50, 0, 10, 10, 110);
+  setupArray[17] = new lightBlock(75, 75, -75, 50, 50, 50);
+  setupArray[18] = new lightBlock(50, 0, -50, 10, 110, 10);
+  setupArray[19] = new lightBlock(0, 50, -50, 110, 10, 10);
+  setupArray[20] = new lightBlock(0, -100, 100, 210, 10, 10);
+  setupArray[21] = new lightBlock(100, 0, -100, 10, 210, 10);
+  setupArray[22] = new lightBlock(75, -75, 75, 50, 50, 50);
+  setupArray[23] = new lightBlock(75, -75, -75, 50, 50, 50);
+  setupArray[24] = new lightBlock(0, -100, -100, 210, 10, 10);
+  setupArray[25] = new lightBlock(-50, 0, -50, 10, 110, 10);
+  setupArray[26] = new lightBlock(-75, -75, 75, 50, 50, 50);
+  setupArray[27] = new lightBlock(-50, -50, 0, 10, 10, 110);
+  setupArray[28] = new lightBlock(0, -50, -50, 110, 10, 10);
+  setupArray[29] = new lightBlock(-100, -100, 0, 10, 10, 210);
+  setupArray[30] = new lightBlock(-75, -75, -75, 50, 50, 50);
+  setupArray[31] = new lightBlock(-100, 0, -100, 10, 210, 10);
+  return setupArray;
+}
+
+void climbOnRun(lightBlock[] climbOnBlocks, boolean climbOn)
+{ 
+  if(beat.isKick())
+  {
+    if(climbOn)
+    {
+      int sideChoice = int(random(0, 32));
+      if(!lightBlocks.contains(climbOnBlocks[sideChoice]))
+      {
+        lightBlocks.add(climbOnBlocks[sideChoice]);
+      }
+      else
+      {
+        climbOnRun(climbOnBlocks, climbOn);
+      }
+    }
+    else
+    {
+      lightBlocks.remove(0);
+    }
+  }
+}
+
+void climbDown()
+{
+  lightBlocks.remove(0);
+}
   /*
   float maxLimit = MIN_FLOAT;
   

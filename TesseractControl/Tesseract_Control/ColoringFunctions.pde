@@ -175,7 +175,7 @@ void colorGradient(color color1, color color2, float barrier, char dimension)
         float blue = map(myLED.realLocation.y, 0 - barrier, 100 , 0, blue(color1));
         //red += map(myLED.realLocation.y, 0 - barrier, -100, 0, red(color2));
         //green += map(myLED.realLocation.y, 0 - barrier, -100, 0, green(color2));
-        //blue += map(myLED.realLocation.y, 0 - barrier, -100, 0, blue(color2));
+        blue += map(myLED.realLocation.y, 0 - barrier, -100, 0, blue(color2));
         myLED.trueColor = color(red, green, blue);
       }
       else if(dimension == 'z')

@@ -23,6 +23,7 @@ boolean debugOn = false;
 boolean outsideOn = false;
 boolean fullOn = false;
 boolean solidOn = false;
+boolean climbing = true;
 
 int animationCheck = 0;
 int colorCheck = 0;
@@ -50,6 +51,8 @@ float closestTextX;
 float closestTextY;
 
 PVector[] vertices;
+
+lightBlock[] climbOnBlocks;
 
 void setup()
 {
@@ -135,7 +138,9 @@ void setup()
   
   beat.setSensitivity(200);
   fft.linAverages( 30 );
-
+  
+  climbOnBlocks = new lightBlock[32];
+  
   setupLEDs();
 
   player.play();
@@ -181,6 +186,17 @@ void draw()
     break;
   case 9:
     whirlwindRun();
+    break;
+  case 10:
+    climbOnRun(climbOnBlocks, climbing);
+    if(lightBlocks.size() == 32)
+    {
+      climbing = false;
+    }
+    if(lightBlocks.size() == 0)
+    {
+      climbing = true;
+    }
     break;
   default:
     break;
@@ -319,45 +335,60 @@ void keyPressed()
     break;
   case '1':
     clearLights();
+    solidOn = false;
     animationCheck = 1;
     break;
   case '2':
     clearLights();
+    solidOn = false;
     animationCheck = 2;
     break;
   case '3':
     clearLights();
+    solidOn = false;
     animationCheck = 3;
     break;
   case '4':
     clearLights();
     evenEqualizerSetup();
+    solidOn = true;
     animationCheck = 4;
     break;
   case '5':
     clearLights();
+    solidOn = false;
     animationCheck = 5;
     break;
   case '6':
     clearLights();
     quadBoxRotSetup();
+    solidOn = true;
     animationCheck = 6;
     break;
   case '7':
     clearLights();
+    solidOn = false;
     fillSetup(color(255, 127, 127), color(100, 100, 100));
     animationCheck = 7;
     break;
   case '8':
     clearLights();
     novaSetup();
+    solidOn = false;
     minLight = 0;
     animationCheck = 8;
     break;
   case '9':
     clearLights();
+    solidOn = true;
+    whirlwindStep = 1000;
     whirlwindSetup();
     animationCheck = 9;
+    break;
+  case '0':
+    clearLights();
+    climbOnBlocks = climbOnSetup();
+    animationCheck = 10;
     break;
   case 'q':
     colorRainbow();
