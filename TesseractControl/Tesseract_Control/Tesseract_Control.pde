@@ -119,22 +119,24 @@ void setup()
   snowColors[2] = color(135, 206, 250);
   
   snow = new lightingScheme(snowColors);
-
   
   opc = new OPC(this, "127.0.0.1", 7890);
+  
+  font = loadFont("Helvetica-12.vlw");
+  textFont(font, 12);
 
   //generate the Tesseract
   generateTesseract();
   setCornerConnections();
-
+  
   colorSolid(255, 255, 255);
 
   //start up minim - for playing music
-  //beat = new BeatDetect(lineIn.bufferSize(), lineIn.sampleRate());
-  //fft = new FFT( lineIn.bufferSize(), lineIn.sampleRate() );
+  beat = new BeatDetect(lineIn.bufferSize(), lineIn.sampleRate());
+  fft = new FFT( lineIn.bufferSize(), lineIn.sampleRate() );
   
-  beat = new BeatDetect(player.bufferSize(), player.sampleRate());
-  fft = new FFT( player.bufferSize(), player.sampleRate() );
+  //beat = new BeatDetect(player.bufferSize(), player.sampleRate());
+  //fft = new FFT( player.bufferSize(), player.sampleRate() );
   
   beat.setSensitivity(200);
   fft.linAverages( 30 );
@@ -143,8 +145,8 @@ void setup()
   
   setupLEDs();
 
-  player.play();
-  player.loop();
+  //player.play();
+  //player.loop();
   savedTime = millis();
 }
 
@@ -152,11 +154,11 @@ void draw()
 {
   background(0);
   
-  //beat.detect( lineIn.mix );
-  //fft.forward( lineIn.mix );
+  beat.detect( lineIn.mix );
+  fft.forward( lineIn.mix );
   
-  beat.detect( player.mix );
-  fft.forward( player.mix );
+  //beat.detect( player.mix );
+  //fft.forward( player.mix );
 
   switch(animationCheck)
   {
@@ -173,7 +175,7 @@ void draw()
     evenEqualizerRun();
     break;
   case 5:
-    rain(6, 0);
+    rain(10, 0);
     break;
   case 6:
     quadBoxRotRun();
@@ -319,6 +321,28 @@ void draw()
       lightBlocks.get(i).display(width*0.75, height*0.75, 0);
     }
   }
+  
+  fill(255);
+  textAlign(LEFT);
+  text("1 - Fill&Dance", 10, 10);
+  text("2 - Pop&Drop", 10, 25);
+  text("3 - PopOnBeat", 10, 40);
+  text("4 - EvenEqualizer", 10, 55);
+  text("5 - Rain", 10, 70);
+  text("6 - QuadEqualizer", 10, 85);
+  text("7 - GradEqualizer", 10, 100);
+  text("8 - Nova", 10, 115);
+  text("9 - Whirlwind", 10, 130);
+  text("0 - PieceTogether", 10, 145);
+  
+  text("q - Rainbow", 150, 10);
+  text("w - Random", 150, 25);
+  text("e - White", 150, 40);
+  text("r - Red", 150, 55);
+  text("t - Blue", 150, 70);
+  text("y - Green", 150, 85);
+  text("p - Glitter", 150, 100);
+  
 }
 
 void keyPressed()
@@ -387,6 +411,7 @@ void keyPressed()
     break;
   case '0':
     clearLights();
+    solidOn = true;
     climbOnBlocks = climbOnSetup();
     animationCheck = 10;
     break;
@@ -397,18 +422,17 @@ void keyPressed()
     colorRandomBlackAndWhite();
     break;
   case 'e':
-    colorGradient(color(255, 0, 0), color(0, 255, 0), 0, 'x');
-    break;
-  case 'r':
     colorSolid(255, 255, 255);
     break;
+  case 'r':
+    //colorSolid(59, 137, 20); //dark Blue
+    colorSolid(82, 216, 16);
+    break;
   case 't':
-    colorSolid(255, 0, 0);
-  case 'y':
     colorSolid(0, 255, 0);
     break;
-  case 'u':
-    colorSolid(0, 0, 255);
+  case 'y':
+    colorSolid(12, 139, 38);
     break;
   case 'p':
     dynamicColoringCheck = (dynamicColoringCheck == 0) ? 1 : 0;

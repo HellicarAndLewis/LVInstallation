@@ -84,7 +84,7 @@ void PopThenDrop()
     else if(sideCheck < 0.875) newIndex = 185;
     else if(sideCheck < 1.0) newIndex = 104;
     lightPoint newLight = new lightPoint(LEDs[newIndex], color(255, 255, 255), 30);
-    newLight.acceleration = new PVector(0, random(0, 5), 0);
+    newLight.acceleration = new PVector(0, random(10, 15), 0);
     newLight.intensity.target(50);
     lightPoints.add(newLight);
     lightPoints.add(newLight);
@@ -137,19 +137,19 @@ void quadBoxRotRun()
     float centerFrequency = fft.getAvg(i);
     if(i == 0)
     {
-      float blockHeight = map(centerFrequency, 0, 3, 0, 50);
+      float blockHeight = map(centerFrequency, 0, 10, 0, 50);
       lightBlocks.get(i).h.target(blockHeight);
       lightBlocks.get(i).h.update();
     }
     else if(i == 1)
     {
-      float blockHeight = map(centerFrequency, 0, 0.5, 0, 50);
+      float blockHeight = map(centerFrequency, 0, 8, 0, 50);
       lightBlocks.get(i).h.target(blockHeight);
       lightBlocks.get(i).h.update();
     }
     else
     {
-      float blockHeight = map(centerFrequency, 0, 0.2, 0, 50);
+      float blockHeight = map(centerFrequency, 0, 8, 0, 50);
       lightBlocks.get(i).h.target(blockHeight);
       lightBlocks.get(i).h.update();
     }
@@ -252,7 +252,7 @@ void evenEqualizerRun()
   {
     //float max = map(i, 0, 15, 2, 0.01);
     float centerFrequency = fft.getAvg(0);
-    float blockHeight = map(centerFrequency, 0, 10, 0, 50);
+    float blockHeight = map(centerFrequency, 0, 33, 0, 50);
     lightBlocks.get(i).w.target(blockHeight);
     lightBlocks.get(i).w.update();
   }
@@ -260,7 +260,7 @@ void evenEqualizerRun()
   {
     //float max = map(i-4, 0, 15, 2, 0.01);
     float centerFrequency = fft.getAvg(0);
-    float blockHeight = map(centerFrequency, 0, 10, 0, 50);
+    float blockHeight = map(centerFrequency, 0, 33, 0, 50);
     lightBlocks.get(i).d.target(blockHeight);
     lightBlocks.get(i).d.update();
   }
@@ -268,7 +268,7 @@ void evenEqualizerRun()
   {
     //float max = map(i-8, 0, 12, 2, 0.01);
     float centerFrequency = fft.getAvg(0);
-    float blockHeight = map(centerFrequency, 0, 10, 0, 50);
+    float blockHeight = map(centerFrequency, 0, 33, 0, 50);
     lightBlocks.get(i).h.target(blockHeight);
     lightBlocks.get(i).h.update();
   }
@@ -594,7 +594,7 @@ void novaRun(float newMinLight)
 {
   lightPoint lightSource = lightPoints.get(0);
   float centerFrequency = fft.getAvg(0);
-  float newIntensity = map(centerFrequency, 10, 30, newMinLight, 300);
+  float newIntensity = map(centerFrequency, 10, 50, newMinLight, 200);
   newIntensity = max(newMinLight, newIntensity);
   lightSource.intensity.target(newIntensity);
   lightSource.intensity.update();
@@ -660,11 +660,6 @@ void climbOnRun(lightBlock[] climbOnBlocks, boolean climbOn)
       lightBlocks.remove(0);
     }
   }
-}
-
-void climbDown()
-{
-  lightBlocks.remove(0);
 }
   /*
   float maxLimit = MIN_FLOAT;
