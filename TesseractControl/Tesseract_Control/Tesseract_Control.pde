@@ -18,7 +18,6 @@ float minLight = 0;
 Integrator barrier = new Integrator(0);
 
 boolean mapOn;
-//boolean randomOn;
 boolean debugOn = false;
 boolean outsideOn = false;
 boolean fullOn = false;
@@ -268,7 +267,7 @@ void draw()
   {
     LEDs[i].draw3D(width*0.75, height*0.75);
   }
-
+  
   //Draw 2D map when mapOn is toggled
   if (mapOn)
   {
@@ -278,7 +277,7 @@ void draw()
       LEDs[i].stroke = 0;
     }
   }
-  
+
   minDistance = MAX_FLOAT;
   PVector mouseLocation = new PVector(mouseX, mouseY);
   
