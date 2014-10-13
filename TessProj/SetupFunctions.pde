@@ -1,7 +1,7 @@
 void defineVertices()
 {
-  outerSize = 600/2;
-  innerSize = 300/2;
+  outerSize = 600;
+  innerSize = 300;
   //Define Vertices
   vertices = new PVector[16];
   vertices[0] = new PVector(outerSize/2, outerSize/2, outerSize/2);
