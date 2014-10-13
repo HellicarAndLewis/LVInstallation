@@ -19,6 +19,15 @@ void handleLoc()
   }
 }
 
+void freeze()
+{
+  for(int i = 0; i < LEDs.length; i++)
+  {
+    LEDs[i].vel = new PVector(0, 0, 0);
+    LEDs[i].acc = new PVector(0, 0, 0);
+  }
+}
+
 void explode()
 {
   for(int i = 0; i < LEDs.length; i++)

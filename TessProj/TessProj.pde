@@ -53,7 +53,7 @@ void setup()
 {
   locAnim = 0;
   frame.setTitle("Tesseract Projection");
-  
+
   //Basic setup
   frameRate(30);
   size(displayWidth, displayHeight, OPENGL);
@@ -127,7 +127,7 @@ void draw()
   switch(locAnim)
   {
     case 1:
-      returnToTess(20);
+      returnToTess(5);
       break;
     default:
       break;
@@ -158,9 +158,6 @@ void keyPressed()
 {
   switch(key)
   {
-    case 'g':
-      //guiOn = !guiOn;
-      break;
     case '1':
       clearLights();
       solidOn = false;
@@ -208,8 +205,13 @@ void keyPressed()
       lightAnim = 8;
       break;
     case 'a':
-      returnToTess(10);
+      returnToTess(5);
       locAnim = 1;
+      savedLocTime = millis();
+      break;
+    case 'f':
+      freeze();
+      locAnim = 0;
       savedLocTime = millis();
       break;
     case 's':
@@ -297,3 +299,4 @@ void clearAnimations()
 boolean sketchFullScreen() {
   return true;
 }
+

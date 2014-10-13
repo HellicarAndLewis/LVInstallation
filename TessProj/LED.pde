@@ -34,7 +34,7 @@ class LED
   {
     realLoc = new PVector(newLoc.x, newLoc.y, newLoc.z);;
     tesLoc = new PVector(newLoc.x, newLoc.y, newLoc.z);
-    maxVel = 10.0;
+    maxVel = 2.0;
     maxAcc = 1.0;
     vel = new PVector(0, 0, 0);
     acc = new PVector(0, 0, 0);
@@ -55,7 +55,7 @@ class LED
     rad.update();
     if(shade == 0)  rad.set(0);
     src.fill(shade);
-    src.ellipse(0, 0, rad.value/2, rad.value/2);
+    src.ellipse(0, 0, rad.value, rad.value);
     src.popMatrix();
   }
   

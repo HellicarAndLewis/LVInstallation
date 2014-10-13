@@ -36,7 +36,7 @@ void setupMinim(boolean lineInOn)
   else
   {
     beat = new BeatDetect(player.bufferSize(), player.sampleRate());
-    fft = new FFT( player.bufferSize(), player.sampleRate() );
+    fft = new FFT(player.bufferSize(), player.sampleRate());
   }
   beat.setSensitivity( 200 );
   fft.linAverages( 2 );
