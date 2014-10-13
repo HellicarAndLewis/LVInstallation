@@ -26,6 +26,7 @@ float innerSize;
 
 //Setup timer
 int savedTime;
+int savedLocTime;
 
 //Animation globals
 int whirlwindStep;
@@ -50,6 +51,7 @@ FFT fft;
 
 void setup()
 {
+  locAnim = 0;
   frame.setTitle("Tesseract Projection");
   
   //Basic setup
@@ -83,11 +85,13 @@ void setup()
   
   //Setup timer
   savedTime = millis();
+  savedLocTime = millis();
 }
 
 void draw()
 {
   activateMinim(lineInOn);
+  //println(fft.getAvg(1));
   switch(lightAnim)
   {
     case 1:
@@ -113,14 +117,17 @@ void draw()
       break;
     case 8:
       climbOnRun(climbOnBlocks, climbing);
-      if(lightBlocks.size() == 32)
-      {
-        climbing = false;
-      }
-      if(lightBlocks.size() == 0)
-      {
-        climbing = true;
-      }
+      if(lightBlocks.size() == 32) climbing = false;
+      if(lightBlocks.size() == 0) climbing = true;
+      break;
+    default:
+      break;
+  }
+  
+  switch(locAnim)
+  {
+    case 1:
+      returnToTess(20);
       break;
     default:
       break;
@@ -133,14 +140,14 @@ void draw()
     shadeLightPoints(LEDs[i], lightPoints);
     shadeWithinBlocks(LEDs[i], lightBlocks);
     LEDs[i].move();
-    LEDs[i].checkEdges();
+    //LEDs[i].checkEdges();
   }
   
   drawGeometry(src);
   
   if(debugOn)
   {
-    drawLights(src);
+    //drawLights(src);
   }
   
   PGraphics graphics = postProduction.dowGlow(src);
@@ -151,9 +158,6 @@ void keyPressed()
 {
   switch(key)
   {
-    case 'd':
-      debugOn = !debugOn;
-      break;
     case 'g':
       //guiOn = !guiOn;
       break;
@@ -203,8 +207,20 @@ void keyPressed()
       climbOnBlocks = climbOnSetup();
       lightAnim = 8;
       break;
-    case '9':
-      dropDown();
+    case 'a':
+      returnToTess(10);
+      locAnim = 1;
+      savedLocTime = millis();
+      break;
+    case 's':
+      explode();
+      locAnim = 0;
+      savedLocTime = millis();
+      break;
+    case 'd':
+      bendOut();
+      locAnim = 0;
+      savedLocTime = millis();
       break;
     case 'q':
       colorRainbow();
@@ -221,8 +237,6 @@ void keyPressed()
     case 'l':
       fullOn = !fullOn;
       break;
-    case 's':
-      solidOn = !solidOn;
     default:
       break;
   }
@@ -232,14 +246,24 @@ void drawGeometry(PGraphics src)
 {
   src.beginDraw();
   src.background(0);
+  src.pushMatrix();
   src.translate(width/2, height/2);
-  
   src.rotateY(frameCount * 0.005f);
   src.noStroke();
   for(int i = 0; i < LEDs.length; i++)
   {
     LEDs[i].draw3D(src);
+    /*
+    src.pushMatrix();
+    src.translate(LEDs[i].realLoc.x, LEDs[i].realLoc.y, LEDs[i].realLoc.z); 
+    src.stroke(color(255, 0, 0));
+    src.line(0, 0, 0, LEDs[i].acc.x * 10, LEDs[i].acc.y * 10, LEDs[i].acc.z * 10);
+    src.stroke(color(0, 255, 0));
+    src.line(0, 0, 0, LEDs[i].vel.x * 10, LEDs[i].vel.y * 10, LEDs[i].vel.z * 10);
+    src.popMatrix();
+    */
   }
+  src.popMatrix();
   src.endDraw();
 }
 

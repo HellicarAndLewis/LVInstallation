@@ -55,7 +55,7 @@ class LED
     rad.update();
     if(shade == 0)  rad.set(0);
     src.fill(shade);
-    src.ellipse(0, 0, rad.value, rad.value);
+    src.ellipse(0, 0, rad.value/2, rad.value/2);
     src.popMatrix();
   }
   

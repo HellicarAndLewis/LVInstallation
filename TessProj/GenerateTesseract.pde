@@ -4,7 +4,6 @@ void generateTesseract()
   int lightsPerStripOutside = 240;
   int lightsPerStripInside = 90;
   int lightsPerStripConnections = 80;
-  println(lightsPerStripOutside * 12 + lightsPerStripInside * 12 + lightsPerStripConnections * 8);
   //Set Side Lengths
   float sideLengthOutside = vertices[0].x - vertices[1].x;
   float sideLengthInside = vertices[8].x -vertices[9].x;
@@ -41,9 +40,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripOutside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsOutsideY, i);
-    PVector newRealLocation = PVector.add(vertices[7], newSpacingVector);
-    newRealLocation.add(spacingVectorsOutsideY);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.add(vertices[7], newSpacingVector);
+    newrealLoc.add(spacingVectorsOutsideY);
+    LED newLED = new LED(newrealLoc);
     newLED.outside = true;
     if(i == 0)
     {
@@ -68,9 +67,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripOutside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsOutsideZ, i);
-    PVector newRealLocation = PVector.add(vertices[3], newSpacingVector);
-    newRealLocation.add(spacingVectorsOutsideZ);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.add(vertices[3], newSpacingVector);
+    newrealLoc.add(spacingVectorsOutsideZ);
+    LED newLED = new LED(newrealLoc);
     newLED.outside = true;
     if(i == 0)
     {
@@ -96,9 +95,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripOutside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsOutsideX, i);
-    PVector newRealLocation = PVector.sub(vertices[7], newSpacingVector);
-    newRealLocation.sub(spacingVectorsOutsideX);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.sub(vertices[7], newSpacingVector);
+    newrealLoc.sub(spacingVectorsOutsideX);
+    LED newLED = new LED(newrealLoc);
     newLED.outside = true;
     if(i == 0)
     {
@@ -123,9 +122,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripOutside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsOutsideZ, i);
-    PVector newRealLocation = PVector.add(vertices[6], newSpacingVector);
-    newRealLocation.add(spacingVectorsOutsideZ);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.add(vertices[6], newSpacingVector);
+    newrealLoc.add(spacingVectorsOutsideZ);
+    LED newLED = new LED(newrealLoc);
     newLED.outside = true;
     if(i == 0)
     {
@@ -154,16 +153,16 @@ void generateTesseract()
     PVector newSpacingVectorY = PVector.mult(spacingVectorsConnectionsY, i);
     PVector newSpacingVectorZ = PVector.mult(spacingVectorsConnectionsZ, i);
     
-    PVector newRealLocation = PVector.sub(vertices[7], newSpacingVectorX);
-    newRealLocation.add(newSpacingVectorY);
-    newRealLocation.add(newSpacingVectorZ);
-    newRealLocation.sub(spacingVectorsConnectionsX);
-    newRealLocation.sub(spacingVectorsConnectionsX);
-    newRealLocation.add(spacingVectorsConnectionsY);
-    newRealLocation.add(spacingVectorsConnectionsY);
-    newRealLocation.add(spacingVectorsConnectionsZ);
-    newRealLocation.add(spacingVectorsConnectionsZ);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.sub(vertices[7], newSpacingVectorX);
+    newrealLoc.add(newSpacingVectorY);
+    newrealLoc.add(newSpacingVectorZ);
+    newrealLoc.sub(spacingVectorsConnectionsX);
+    newrealLoc.sub(spacingVectorsConnectionsX);
+    newrealLoc.add(spacingVectorsConnectionsY);
+    newrealLoc.add(spacingVectorsConnectionsY);
+    newrealLoc.add(spacingVectorsConnectionsZ);
+    newrealLoc.add(spacingVectorsConnectionsZ);
+    LED newLED = new LED(newrealLoc);
     newLED.connections = true;
     if(i == 0)
     {
@@ -188,9 +187,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripInside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsInsideY, i);
-    PVector newRealLocation = PVector.add(vertices[15], newSpacingVector);
-    newRealLocation.add(spacingVectorsOutsideY);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.add(vertices[15], newSpacingVector);
+    newrealLoc.add(spacingVectorsOutsideY);
+    LED newLED = new LED(newrealLoc);
     newLED.inside = true;
     if(i == 0)
     {
@@ -218,13 +217,13 @@ void generateTesseract()
     PVector newSpacingVectorY = PVector.mult(spacingVectorsConnectionsY, i);
     PVector newSpacingVectorZ = PVector.mult(spacingVectorsConnectionsZ, i);
     
-    PVector newRealLocation = PVector.add(vertices[11], newSpacingVectorX);
-    newRealLocation.add(newSpacingVectorY);
-    newRealLocation.sub(newSpacingVectorZ);
-    newRealLocation.add(spacingVectorsConnectionsX);
-    newRealLocation.add(spacingVectorsConnectionsY);
-    newRealLocation.sub(spacingVectorsConnectionsZ);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.add(vertices[11], newSpacingVectorX);
+    newrealLoc.add(newSpacingVectorY);
+    newrealLoc.sub(newSpacingVectorZ);
+    newrealLoc.add(spacingVectorsConnectionsX);
+    newrealLoc.add(spacingVectorsConnectionsY);
+    newrealLoc.sub(spacingVectorsConnectionsZ);
+    LED newLED = new LED(newrealLoc);
     newLED.connections = true;
     if(i == 0)
     {
@@ -252,9 +251,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripOutside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsOutsideX, i);
-    PVector newRealLocation = PVector.sub(vertices[3], newSpacingVector);
-    newRealLocation.sub(spacingVectorsOutsideX);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.sub(vertices[3], newSpacingVector);
+    newrealLoc.sub(spacingVectorsOutsideX);
+    LED newLED = new LED(newrealLoc);
     newLED.outside = true;
     if(i == 0)
     {
@@ -279,9 +278,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripOutside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsOutsideY, i);
-    PVector newRealLocation = PVector.sub(vertices[2], newSpacingVector);
-    newRealLocation.sub(spacingVectorsOutsideY);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.sub(vertices[2], newSpacingVector);
+    newrealLoc.sub(spacingVectorsOutsideY);
+    LED newLED = new LED(newrealLoc);
     newLED.outside = true;
     if(i == 0)
     {
@@ -310,16 +309,16 @@ void generateTesseract()
     PVector newSpacingVectorY = PVector.mult(spacingVectorsConnectionsY, i);
     PVector newSpacingVectorZ = PVector.mult(spacingVectorsConnectionsZ, i);
     
-    PVector newRealLocation = PVector.add(vertices[2], newSpacingVectorX);
-    newRealLocation.sub(newSpacingVectorY);
-    newRealLocation.add(newSpacingVectorZ);
-    newRealLocation.add(spacingVectorsConnectionsX);
-    newRealLocation.add(spacingVectorsConnectionsX);
-    newRealLocation.sub(spacingVectorsConnectionsY);
-    newRealLocation.sub(spacingVectorsConnectionsY);
-    newRealLocation.add(spacingVectorsConnectionsZ);
-    newRealLocation.add(spacingVectorsConnectionsZ);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.add(vertices[2], newSpacingVectorX);
+    newrealLoc.sub(newSpacingVectorY);
+    newrealLoc.add(newSpacingVectorZ);
+    newrealLoc.add(spacingVectorsConnectionsX);
+    newrealLoc.add(spacingVectorsConnectionsX);
+    newrealLoc.sub(spacingVectorsConnectionsY);
+    newrealLoc.sub(spacingVectorsConnectionsY);
+    newrealLoc.add(spacingVectorsConnectionsZ);
+    newrealLoc.add(spacingVectorsConnectionsZ);
+    LED newLED = new LED(newrealLoc);
     newLED.connections = true;
     if(i == 0)
     {
@@ -344,9 +343,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripInside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsInsideY, i);
-    PVector newRealLocation = PVector.sub(vertices[10], newSpacingVector);
-    newRealLocation.sub(spacingVectorsOutsideY);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.sub(vertices[10], newSpacingVector);
+    newrealLoc.sub(spacingVectorsOutsideY);
+    LED newLED = new LED(newrealLoc);
     newLED.inside = true;
     if(i == 0)
     {
@@ -374,13 +373,13 @@ void generateTesseract()
     PVector newSpacingVectorY = PVector.mult(spacingVectorsConnectionsY, i);
     PVector newSpacingVectorZ = PVector.mult(spacingVectorsConnectionsZ, i);
     
-    PVector newRealLocation = PVector.sub(vertices[14], newSpacingVectorX);
-    newRealLocation.sub(newSpacingVectorY);
-    newRealLocation.sub(newSpacingVectorZ);
-    newRealLocation.sub(spacingVectorsConnectionsX);
-    newRealLocation.sub(spacingVectorsConnectionsY);
-    newRealLocation.sub(spacingVectorsConnectionsZ);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.sub(vertices[14], newSpacingVectorX);
+    newrealLoc.sub(newSpacingVectorY);
+    newrealLoc.sub(newSpacingVectorZ);
+    newrealLoc.sub(spacingVectorsConnectionsX);
+    newrealLoc.sub(spacingVectorsConnectionsY);
+    newrealLoc.sub(spacingVectorsConnectionsZ);
+    LED newLED = new LED(newrealLoc);
     newLED.connections = true;
     if(i == 0)
     {
@@ -406,9 +405,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripInside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsInsideX, i);
-    PVector newRealLocation = PVector.sub(vertices[11], newSpacingVector);
-    newRealLocation.sub(spacingVectorsOutsideX);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.sub(vertices[11], newSpacingVector);
+    newrealLoc.sub(spacingVectorsOutsideX);
+    LED newLED = new LED(newrealLoc);
     newLED.inside = true;
     if(i == 0)
     {
@@ -433,9 +432,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripInside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsInsideZ, i);
-    PVector newRealLocation = PVector.add(vertices[10], newSpacingVector);
-    newRealLocation.add(spacingVectorsOutsideZ);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.add(vertices[10], newSpacingVector);
+    newrealLoc.add(spacingVectorsOutsideZ);
+    LED newLED = new LED(newrealLoc);
     newLED.inside = true;
     if(i == 0)
     {
@@ -460,9 +459,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripInside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsInsideX, i);
-    PVector newRealLocation = PVector.add(vertices[9], newSpacingVector);
-    newRealLocation.add(spacingVectorsOutsideX);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.add(vertices[9], newSpacingVector);
+    newrealLoc.add(spacingVectorsOutsideX);
+    LED newLED = new LED(newrealLoc);
     newLED.inside = true;
     if(i == 0)
     {
@@ -487,9 +486,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripInside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsInsideZ, i);
-    PVector newRealLocation = PVector.sub(vertices[8], newSpacingVector);
-    newRealLocation.sub(spacingVectorsOutsideZ);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.sub(vertices[8], newSpacingVector);
+    newrealLoc.sub(spacingVectorsOutsideZ);
+    LED newLED = new LED(newrealLoc);
     newLED.inside = true;
     if(i == 0)
     {
@@ -516,9 +515,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripOutside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsOutsideX, i);
-    PVector newRealLocation = PVector.sub(vertices[0], newSpacingVector);
-    newRealLocation.sub(spacingVectorsOutsideX);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.sub(vertices[0], newSpacingVector);
+    newrealLoc.sub(spacingVectorsOutsideX);
+    LED newLED = new LED(newrealLoc);
     newLED.outside = true;
     if(i == 0)
     {
@@ -543,9 +542,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripOutside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsOutsideZ, i);
-    PVector newRealLocation = PVector.sub(vertices[1], newSpacingVector);
-    newRealLocation.sub(spacingVectorsOutsideZ);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.sub(vertices[1], newSpacingVector);
+    newrealLoc.sub(spacingVectorsOutsideZ);
+    LED newLED = new LED(newrealLoc);
     newLED.outside = true;
     if(i == 0)
     {
@@ -571,9 +570,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripOutside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsOutsideY, i);
-    PVector newRealLocation = PVector.sub(vertices[0], newSpacingVector);
-    newRealLocation.sub(spacingVectorsOutsideY);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.sub(vertices[0], newSpacingVector);
+    newrealLoc.sub(spacingVectorsOutsideY);
+    LED newLED = new LED(newrealLoc);
     newLED.outside = true;
     if(i == 0)
     {
@@ -598,9 +597,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripOutside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsOutsideZ, i);
-    PVector newRealLocation = PVector.sub(vertices[4], newSpacingVector);
-    newRealLocation.sub(spacingVectorsOutsideZ);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.sub(vertices[4], newSpacingVector);
+    newrealLoc.sub(spacingVectorsOutsideZ);
+    LED newLED = new LED(newrealLoc);
     newLED.outside = true;
     if(i == 0)
     {
@@ -629,16 +628,16 @@ void generateTesseract()
     PVector newSpacingVectorY = PVector.mult(spacingVectorsConnectionsY, i);
     PVector newSpacingVectorZ = PVector.mult(spacingVectorsConnectionsZ, i);
     
-    PVector newRealLocation = PVector.add(vertices[1], newSpacingVectorX);
-    newRealLocation.sub(newSpacingVectorY);
-    newRealLocation.sub(newSpacingVectorZ);
-    newRealLocation.add(spacingVectorsConnectionsX);
-    newRealLocation.add(spacingVectorsConnectionsX);
-    newRealLocation.sub(spacingVectorsConnectionsY);
-    newRealLocation.sub(spacingVectorsConnectionsY);
-    newRealLocation.sub(spacingVectorsConnectionsZ);
-    newRealLocation.sub(spacingVectorsConnectionsZ);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.add(vertices[1], newSpacingVectorX);
+    newrealLoc.sub(newSpacingVectorY);
+    newrealLoc.sub(newSpacingVectorZ);
+    newrealLoc.add(spacingVectorsConnectionsX);
+    newrealLoc.add(spacingVectorsConnectionsX);
+    newrealLoc.sub(spacingVectorsConnectionsY);
+    newrealLoc.sub(spacingVectorsConnectionsY);
+    newrealLoc.sub(spacingVectorsConnectionsZ);
+    newrealLoc.sub(spacingVectorsConnectionsZ);
+    LED newLED = new LED(newrealLoc);
     newLED.connections = true;
     if(i == 0)
     {
@@ -663,9 +662,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripInside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsInsideY, i);
-    PVector newRealLocation = PVector.sub(vertices[9], newSpacingVector);
-    newRealLocation.sub(spacingVectorsOutsideY);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.sub(vertices[9], newSpacingVector);
+    newrealLoc.sub(spacingVectorsOutsideY);
+    LED newLED = new LED(newrealLoc);
     newLED.inside = true;
     if(i == 0)
     {
@@ -693,13 +692,13 @@ void generateTesseract()
     PVector newSpacingVectorY = PVector.mult(spacingVectorsConnectionsY, i);
     PVector newSpacingVectorZ = PVector.mult(spacingVectorsConnectionsZ, i);
     
-    PVector newRealLocation = PVector.sub(vertices[13], newSpacingVectorX);
-    newRealLocation.sub(newSpacingVectorY);
-    newRealLocation.add(newSpacingVectorZ);
-    newRealLocation.sub(spacingVectorsConnectionsX);
-    newRealLocation.sub(spacingVectorsConnectionsY);
-    newRealLocation.add(spacingVectorsConnectionsZ);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.sub(vertices[13], newSpacingVectorX);
+    newrealLoc.sub(newSpacingVectorY);
+    newrealLoc.add(newSpacingVectorZ);
+    newrealLoc.sub(spacingVectorsConnectionsX);
+    newrealLoc.sub(spacingVectorsConnectionsY);
+    newrealLoc.add(spacingVectorsConnectionsZ);
+    LED newLED = new LED(newrealLoc);
     newLED.connections = true;
     if(i == 0)
     {
@@ -727,9 +726,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripOutside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsOutsideX, i);
-    PVector newRealLocation = PVector.sub(vertices[4], newSpacingVector);
-    newRealLocation.sub(spacingVectorsOutsideX);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.sub(vertices[4], newSpacingVector);
+    newrealLoc.sub(spacingVectorsOutsideX);
+    LED newLED = new LED(newrealLoc);
     newLED.outside = true;
     if(i == 0)
     {
@@ -754,9 +753,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripOutside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsOutsideY, i);
-    PVector newRealLocation = PVector.add(vertices[5], newSpacingVector);
-    newRealLocation.add(spacingVectorsOutsideY);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.add(vertices[5], newSpacingVector);
+    newrealLoc.add(spacingVectorsOutsideY);
+    LED newLED = new LED(newrealLoc);
     newLED.outside = true;
     if(i == 0)
     {
@@ -785,16 +784,16 @@ void generateTesseract()
     PVector newSpacingVectorY = PVector.mult(spacingVectorsConnectionsY, i);
     PVector newSpacingVectorZ = PVector.mult(spacingVectorsConnectionsZ, i);
     
-    PVector newRealLocation = PVector.sub(vertices[4], newSpacingVectorX);
-    newRealLocation.add(newSpacingVectorY);
-    newRealLocation.sub(newSpacingVectorZ);
-    newRealLocation.sub(spacingVectorsConnectionsX);
-    newRealLocation.sub(spacingVectorsConnectionsX);
-    newRealLocation.add(spacingVectorsConnectionsY);
-    newRealLocation.add(spacingVectorsConnectionsY);
-    newRealLocation.sub(spacingVectorsConnectionsZ);
-    newRealLocation.sub(spacingVectorsConnectionsZ);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.sub(vertices[4], newSpacingVectorX);
+    newrealLoc.add(newSpacingVectorY);
+    newrealLoc.sub(newSpacingVectorZ);
+    newrealLoc.sub(spacingVectorsConnectionsX);
+    newrealLoc.sub(spacingVectorsConnectionsX);
+    newrealLoc.add(spacingVectorsConnectionsY);
+    newrealLoc.add(spacingVectorsConnectionsY);
+    newrealLoc.sub(spacingVectorsConnectionsZ);
+    newrealLoc.sub(spacingVectorsConnectionsZ);
+    LED newLED = new LED(newrealLoc);
     newLED.connections = true;
     if(i == 0)
     {
@@ -819,9 +818,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripInside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsInsideY, i);
-    PVector newRealLocation = PVector.add(vertices[12], newSpacingVector);
-    newRealLocation.add(spacingVectorsOutsideY);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.add(vertices[12], newSpacingVector);
+    newrealLoc.add(spacingVectorsOutsideY);
+    LED newLED = new LED(newrealLoc);
     newLED.inside = true;
     if(i == 0)
     {
@@ -848,13 +847,13 @@ void generateTesseract()
     PVector newSpacingVectorY = PVector.mult(spacingVectorsConnectionsY, i);
     PVector newSpacingVectorZ = PVector.mult(spacingVectorsConnectionsZ, i);
     
-    PVector newRealLocation = PVector.add(vertices[8], newSpacingVectorX);
-    newRealLocation.add(newSpacingVectorY);
-    newRealLocation.add(newSpacingVectorZ);
-    newRealLocation.add(spacingVectorsConnectionsX);
-    newRealLocation.add(spacingVectorsConnectionsY);
-    newRealLocation.add(spacingVectorsConnectionsZ);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.add(vertices[8], newSpacingVectorX);
+    newrealLoc.add(newSpacingVectorY);
+    newrealLoc.add(newSpacingVectorZ);
+    newrealLoc.add(spacingVectorsConnectionsX);
+    newrealLoc.add(spacingVectorsConnectionsY);
+    newrealLoc.add(spacingVectorsConnectionsZ);
+    LED newLED = new LED(newrealLoc);
     newLED.connections = true;
     if(i == 0)
     {
@@ -880,9 +879,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripInside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsInsideX, i);
-    PVector newRealLocation = PVector.sub(vertices[12], newSpacingVector);
-    newRealLocation.sub(spacingVectorsOutsideX);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.sub(vertices[12], newSpacingVector);
+    newrealLoc.sub(spacingVectorsOutsideX);
+    LED newLED = new LED(newrealLoc);
     newLED.inside = true;
     if(i == 0)
     {
@@ -907,9 +906,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripInside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsInsideZ, i);
-    PVector newRealLocation = PVector.sub(vertices[13], newSpacingVector);
-    newRealLocation.sub(spacingVectorsOutsideZ);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.sub(vertices[13], newSpacingVector);
+    newrealLoc.sub(spacingVectorsOutsideZ);
+    LED newLED = new LED(newrealLoc);
     newLED.inside = true;
     if(i == 0)
     {
@@ -934,9 +933,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripInside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsInsideX, i);
-    PVector newRealLocation = PVector.add(vertices[14], newSpacingVector);
-    newRealLocation.add(spacingVectorsOutsideX);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.add(vertices[14], newSpacingVector);
+    newrealLoc.add(spacingVectorsOutsideX);
+    LED newLED = new LED(newrealLoc);
     newLED.inside = true;
     if(i == 0)
     {
@@ -961,9 +960,9 @@ void generateTesseract()
   for(int i = 0; i < lightsPerStripInside; i++)
   {
     PVector newSpacingVector = PVector.mult(spacingVectorsInsideZ, i);
-    PVector newRealLocation = PVector.add(vertices[15], newSpacingVector);
-    newRealLocation.add(spacingVectorsOutsideZ);
-    LED newLED = new LED(newRealLocation);
+    PVector newrealLoc = PVector.add(vertices[15], newSpacingVector);
+    newrealLoc.add(spacingVectorsOutsideZ);
+    LED newLED = new LED(newrealLoc);
     newLED.inside = true;
     if(i == 0)
     {
