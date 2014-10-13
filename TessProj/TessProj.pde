@@ -129,6 +129,9 @@ void draw()
     case 1:
       returnToTess(5);
       break;
+    case 2:
+      returnToTess(50);
+      break;
     default:
       break;
   }
@@ -217,6 +220,11 @@ void keyPressed()
     case 's':
       explode();
       locAnim = 0;
+      savedLocTime = millis();
+      break;
+    case 'g':
+      returnToTess(50);
+      locAnim = 2;
       savedLocTime = millis();
       break;
     case 'd':

@@ -34,7 +34,7 @@ class LED
   {
     realLoc = new PVector(newLoc.x, newLoc.y, newLoc.z);;
     tesLoc = new PVector(newLoc.x, newLoc.y, newLoc.z);
-    maxVel = 2.0;
+    maxVel = 19.0;
     maxAcc = 1.0;
     vel = new PVector(0, 0, 0);
     acc = new PVector(0, 0, 0);

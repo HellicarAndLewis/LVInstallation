@@ -28,6 +28,14 @@ void freeze()
   }
 }
 
+void forceReturn()
+{
+  for(int i = 0; i < LEDs.length; i++)
+  {
+    LEDs[i].realLoc = new PVector(LEDs[i].tesLoc.x, LEDs[i].tesLoc.y, LEDs[i].tesLoc.z);
+  }
+}
+
 void explode()
 {
   for(int i = 0; i < LEDs.length; i++)
