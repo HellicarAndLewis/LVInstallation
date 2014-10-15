@@ -32,16 +32,18 @@ void setupMinim(boolean lineInOn)
   {
     beat = new BeatDetect(lineIn.bufferSize(), lineIn.sampleRate());
     fft = new FFT(lineIn.bufferSize(), lineIn.sampleRate());
+    beat.setSensitivity(200);
+    fft.linAverages(2);
   }
   else
   {
     beat = new BeatDetect(player.bufferSize(), player.sampleRate());
     fft = new FFT(player.bufferSize(), player.sampleRate());
+    beat.setSensitivity(200);
+    fft.linAverages(2);
+    player.play();
+    player.loop();
   }
-  beat.setSensitivity( 200 );
-  fft.linAverages( 2 );
-  player.play();
-  player.loop();
 }
 
 void activateMinim(boolean lineInOn)
