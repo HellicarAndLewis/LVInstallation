@@ -59,3 +59,12 @@ void activateMinim(boolean lineInOn)
     fft.forward( player.mix );
   }  
 }
+
+float dist3D(PVector vec1, PVector vec2)
+{
+  float xd = vec2.x - vec1.x;
+  float yd = vec2.y - vec1.y;
+  float zd = vec2.z - vec1.z;
+  float dist = sqrt(xd*xd+yd*yd+zd*zd);
+  return dist;
+}

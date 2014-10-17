@@ -1,3 +1,63 @@
+void handleLights()
+{
+  if(millis() - savedLightTime > 180000 || whirlwindStep < 0.01)
+  {
+    int animCheck = int(random(1, 9));
+    switch(animCheck)
+    {
+      case 1:
+        clearLights();
+        solidOn = false;
+        lightAnim = 1;
+        break;
+      case 2:
+        clearLights();
+        solidOn = false;
+        lightAnim = 2;
+        break;
+      case 3:
+        clearLights();
+        solidOn = false;
+        lightAnim = 3;
+        break;
+      case 4:
+        clearLights();
+        evenEqualizerSetup();
+        solidOn = true;
+        lightAnim = 4;
+        break;
+      case 5:
+        clearLights();
+        solidOn = false;
+        lightAnim = 5;
+        break;
+      case 6:
+        clearLights();
+        novaSetup();
+        solidOn = false;
+        minLight = 0;
+        lightAnim = 6;
+        break;
+      case 7:
+        clearLights();
+        solidOn = true;
+        whirlwindStep = 1000;
+        whirlwindSetup();
+        lightAnim = 7;
+        break;
+      case 8:
+        clearLights();
+        solidOn = true;
+        climbOnBlocks = climbOnSetup();
+        lightAnim = 8;
+        break;
+      default:
+        break;
+     }
+     savedLightTime = millis();
+  }
+}
+
 void popOnBeat()
 {
   if(beat.isKick())
@@ -275,7 +335,7 @@ void evenEqualizerRun()
   {
     //float max = map(i, 0, 15, 2, 0.01);
     float centerFrequency = fft.getAvg(0);
-    float blockHeight = map(centerFrequency, 0, 20, 0, outerSize);
+    float blockHeight = map(centerFrequency, 0, 100 * slider.value, 0, outerSize);
     lightBlocks.get(i).w.target(blockHeight);
     lightBlocks.get(i).w.update();
   }
@@ -283,7 +343,7 @@ void evenEqualizerRun()
   {
     //float max = map(i-4, 0, 15, 2, 0.01);
     float centerFrequency = fft.getAvg(0);
-    float blockHeight = map(centerFrequency, 0, 20, 0, outerSize);
+    float blockHeight = map(centerFrequency, 0, 100 * slider.value, 0, outerSize);
     lightBlocks.get(i).d.target(blockHeight);
     lightBlocks.get(i).d.update();
   }
@@ -291,7 +351,7 @@ void evenEqualizerRun()
   {
     //float max = map(i-8, 0, 12, 2, 0.01);
     float centerFrequency = fft.getAvg(0);
-    float blockHeight = map(centerFrequency, 0, 20, 0, outerSize);
+    float blockHeight = map(centerFrequency, 0, 100 * slider.value, 0, outerSize);
     lightBlocks.get(i).h.target(blockHeight);
     lightBlocks.get(i).h.update();
   }
@@ -436,7 +496,7 @@ void novaRun(float newMinLight)
 {
   lightPoint lightSource = lightPoints.get(0);
   float average = fft.getAvg(0);
-  float newIntensity = map(average, 0, 5, newMinLight, outerSize);
+  float newIntensity = map(average, 0, 25 * slider.value, newMinLight, outerSize);
   newIntensity = max(newMinLight, newIntensity);
   lightSource.intensity.target(newIntensity);
   lightSource.intensity.update();

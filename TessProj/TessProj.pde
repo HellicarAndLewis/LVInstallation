@@ -1,4 +1,4 @@
-import g4p_controls.*;
+import de.bezier.guido.*;
 
 import javax.swing.*;
 
@@ -20,12 +20,12 @@ ArrayList<lightBlock> lightBlocks;
 //Tesseract constants
 PVector[] vertices;
 LED[] LEDs;
-
 float outerSize;
 float innerSize;
 
 //Setup timer
 int savedTime;
+int savedLightTime;
 int savedLocTime;
 
 //Animation globals
@@ -39,8 +39,10 @@ boolean solidOn;
 boolean fullOn;
 boolean climbing;
 boolean lineInOn = false;
+boolean guiOn;
 int lightAnim;
 int locAnim;
+Slider slider;
 
 //Audio setup
 Minim minim;
@@ -51,9 +53,16 @@ FFT fft;
 
 void setup()
 {
+  whirlwindStep = 1000;
   locAnim = 0;
   frame.setTitle("Tesseract Projection");
-
+  
+  guiOn = true;
+  
+  Interactive.make( this );
+  
+  slider = new Slider( 2, 2, width - 4, 16 );
+  
   //Basic setup
   frameRate(30);
   size(displayWidth, displayHeight, OPENGL);
@@ -85,13 +94,17 @@ void setup()
   
   //Setup timer
   savedTime = millis();
+  savedLightTime = millis();
   savedLocTime = millis();
 }
 
 void draw()
 {
   activateMinim(lineInOn);
-  //println(fft.getAvg(1));
+  
+  handleLoc();
+  handleLights();
+  println(fft.getAvg(1));
   switch(lightAnim)
   {
     case 1:
@@ -247,6 +260,9 @@ void keyPressed()
     case 'l':
       fullOn = !fullOn;
       break;
+    case 'o':
+      guiOn = !guiOn;
+      break;
     default:
       break;
   }
@@ -307,4 +323,5 @@ void clearAnimations()
 boolean sketchFullScreen() {
   return true;
 }
+
 

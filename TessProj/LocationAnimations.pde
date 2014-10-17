@@ -1,21 +1,32 @@
 void handleLoc()
 {
-  /*
-  if(beat.isKick())
+  if(millis() - savedLocTime > 18000)
   {
-    bendOut();
+    int animCheck = int(random(1, 5));
+    switch(animCheck)
+    {
+      case 1:
+          returnToTess(5);
+          locAnim = 1;
+          savedLocTime = millis();
+          break;
+        case 2:
+          freeze();
+          locAnim = 0;
+          savedLocTime = millis();
+          break;
+        case 3:
+          explode();
+          locAnim = 0;
+          savedLocTime = millis();
+          break;
+        case 4:
+          returnToTess(50);
+          locAnim = 2;
+          savedLocTime = millis();
+          break;
+    }
     savedLocTime = millis();
-  }
-  */
-  println(fft.getAvg(1));
-  if(fft.getAvg(1) > 0.8)
-  {
-    explode();
-    savedLocTime = millis();
-  }
-  else if(millis() - savedLocTime > 200)
-  {
-    locAnim = 1;
   }
 }
 
