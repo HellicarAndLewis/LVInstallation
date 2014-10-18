@@ -65,7 +65,7 @@ void setup()
   
   //Basic setup
   frameRate(30);
-  size(displayWidth, displayHeight, OPENGL);
+  size(1280, 720, OPENGL);
   smooth(8);
   
   //Setup vertices
@@ -102,9 +102,9 @@ void draw()
 {
   activateMinim(lineInOn);
   
-  handleLoc();
-  handleLights();
-  println(fft.getAvg(1));
+  //handleLoc();
+  //handleLights();
+  
   switch(lightAnim)
   {
     case 1:
@@ -174,6 +174,9 @@ void keyPressed()
 {
   switch(key)
   {
+    case 'p':
+      player.play();
+      break;
     case '1':
       clearLights();
       solidOn = false;
@@ -319,9 +322,10 @@ void clearAnimations()
 {
   lightAnim = 0;
 }
-
+/*
 boolean sketchFullScreen() {
   return true;
 }
+*/
 
 

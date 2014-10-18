@@ -1,7 +1,7 @@
 void defineVertices()
 {
-  outerSize = 600;
-  innerSize = 300;
+  outerSize = 350;
+  innerSize = outerSize/2;
   //Define Vertices
   vertices = new PVector[16];
   vertices[0] = new PVector(outerSize/2, outerSize/2, outerSize/2);
@@ -41,8 +41,6 @@ void setupMinim(boolean lineInOn)
     fft = new FFT(player.bufferSize(), player.sampleRate());
     beat.setSensitivity(200);
     fft.linAverages(2);
-    player.play();
-    player.loop();
   }
 }
 

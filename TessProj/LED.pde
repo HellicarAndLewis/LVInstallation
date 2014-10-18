@@ -49,7 +49,7 @@ class LED
     src.noStroke();
     src.rotateY(-frameCount * 0.005f);
     int radVal = int(red(shade) + green(shade) + blue(shade));
-    float fftVal = map(fft.getAvg(0), 0, 100   * slider.value, 0, 300);
+    float fftVal = map(fft.getAvg(0), 0, 100 * slider.value, 0, outerSize * 0.5);
     radVal = int(map(radVal, 0, 765, 0, fftVal));
     rad.target(radVal);
     rad.update();
@@ -79,7 +79,7 @@ class LED
   void checkEdges()
   {
     float dist = dist3D(realLoc, new PVector(0, 0, 0));
-    if(dist > outerSize * 3)
+    if(dist > outerSize * 5)
     {
       acc = new PVector(0, 0, 0);
       vel.x *= -1;

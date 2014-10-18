@@ -62,9 +62,9 @@ void popOnBeat()
 {
   if(beat.isKick())
   {
-    lightPoint newLight = new lightPoint(LEDs[int(random(LEDs.length))], color(255, 255, 255), 20);
+    lightPoint newLight = new lightPoint(LEDs[int(random(LEDs.length))], color(255, 255, 255), outerSize * 0.03);
     newLight.intensity.attraction = 0.1;
-    newLight.intensity.target(500);
+    newLight.intensity.target(outerSize * 0.8);
     newLight.intensity.attraction = 1.0;
     lightPoints.add(newLight);
   }
@@ -103,9 +103,9 @@ void PopThenDrop()
     else if(sideCheck < 0.75) newIndex = 4070;
     else if(sideCheck < 0.875) newIndex = 1850;
     else if(sideCheck < 1.0) newIndex = 1040;
-    lightPoint newLight = new lightPoint(LEDs[newIndex], color(255, 255, 255), 30);
+    lightPoint newLight = new lightPoint(LEDs[newIndex], color(255, 255, 255), outerSize * 0.05);
     newLight.acceleration = new PVector(0, random(10, 15), 0);
-    newLight.intensity.target(200);
+    newLight.intensity.target(outerSize * 0.33);
     lightPoints.add(newLight);
     lightPoints.add(newLight);
   }
@@ -133,13 +133,13 @@ void fillThenDance()
 {
   if(beat.isKick())
   {
-    lightPoint newLight = new lightPoint(LEDs[int(random(LEDs.length))], color(255, 255, 255), 70);
+    lightPoint newLight = new lightPoint(LEDs[int(random(LEDs.length))], color(255, 255, 255), outerSize * 0.1);
     newLight.velocity = new PVector(random(5, 10), random(5, 10), random(5, 10));
     lightPoints.add(newLight);
     lightPoints.add(newLight);
     for(int i = 0; i < lightPoints.size(); i++)
     {
-      lightPoints.get(i).intensity.target(200);
+      lightPoints.get(i).intensity.target(outerSize * 0.3);
       lightPoints.get(i).intensity.update();
     }
   }
@@ -189,9 +189,9 @@ void rain(float speed, int danceNum)
         break;
     }
     
-    lightPoint newLight = new lightPoint(LEDs[randomLEDIndex], color(255, 255, 255), 100);
+    lightPoint newLight = new lightPoint(LEDs[randomLEDIndex], color(255, 255, 255), outerSize * 0.16);
     newLight.intensity.attraction = 0.1;
-    newLight.intensity.target(20);
+    newLight.intensity.target(outerSize * 0.03);
 
     float randomDir = random(1);
     lightPoints.add(newLight);
@@ -486,7 +486,7 @@ void climbOnRun(lightBlock[] climbOnBlocks, boolean climbOn)
 
 void novaSetup()
 {
-  lightPoint centerPoint = new lightPoint(0, 0, 0, color(255), 10);
+  lightPoint centerPoint = new lightPoint(0, 0, 0, color(255), outerSize * 0.016);
   centerPoint.intensity.attraction  = 1.0;
   centerPoint.intensity.damping = 0.45;
   lightPoints.add(centerPoint);
