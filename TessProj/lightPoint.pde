@@ -3,9 +3,7 @@ class lightPoint
   PVector location;
   PVector velocity;
   PVector acceleration;
-  
-  boolean pulsing;
-  
+    
   float initIntensity;
 
   color lightColor;
@@ -20,7 +18,6 @@ class lightPoint
     intensity = new Integrator(newIntensity);
     velocity = new PVector(0, 0, 0);
     acceleration = new PVector(0, 0, 0);
-    pulsing = false;
   }
   
   public lightPoint(float x, float y, float z, color newLightColor, float newIntensity)
